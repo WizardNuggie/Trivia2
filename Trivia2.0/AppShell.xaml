@@ -5,11 +5,13 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:Trivia2._0.Views"
     Shell.FlyoutBehavior="Flyout">
-    <FlyoutItem FlyoutDisplayOptions="AsMultipleItems">
-    <ShellContent
+    <FlyoutItem Title="Home">
+        <ShellContent
         Title="Home"
         ContentTemplate="{DataTemplate local:HomePage}"
         Route="MainPage" />
+    </FlyoutItem>
+    <FlyoutItem Title="Log In">
         <ShellContent
         Title="Log In"
         ContentTemplate="{DataTemplate local:Login}"
