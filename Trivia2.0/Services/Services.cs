@@ -48,7 +48,7 @@ namespace Trivia2._0.Services
         {
             FillList();
         }
-        private async void FillList()
+        private void FillList()
         {
             Players = new List<User>();
             Players.Add(new User()
@@ -76,7 +76,7 @@ namespace Trivia2._0.Services
         {
             FillList();
         }
-        private async void FillList()
+        private void FillList()
         {
             Questions = new List<Question>();
             Questions.Add(new Question()
@@ -148,24 +148,26 @@ namespace Trivia2._0.Services
         {
             FillList();
         }
-        private async void FillList()
+        private void FillList()
         {
-            Ranks = new List<Rank>();
-            Ranks.Add(new Rank()
+            Ranks = new List<Rank>
             {
-                Rankid = 1,
-                RankName = "Admin"
-            });
-            Ranks.Add(new Rank()
-            {
-                Rankid = 2,
-                RankName = "Master"
-            });
-            Ranks.Add(new Rank()
-            {
-                Rankid = 3,
-                RankName = "Rookie"
-            });
+                new Rank()
+                {
+                    Rankid = 1,
+                    RankName = "Admin"
+                },
+                new Rank()
+                {
+                    Rankid = 2,
+                    RankName = "Master"
+                },
+                new Rank()
+                {
+                    Rankid = 3,
+                    RankName = "Rookie"
+                }
+            };
         }
     }
     internal class QuestionStatusService
@@ -175,7 +177,7 @@ namespace Trivia2._0.Services
         {
             FillList();
         }
-        private async void FillList()
+        private void FillList()
         {
             QuestionStatuses = new List<Status>();
             QuestionStatuses.Add(new Status()
@@ -202,7 +204,7 @@ namespace Trivia2._0.Services
         {
             FillList();
         }
-        private async void FillList()
+        private void FillList()
         {
             Subjects = new List<Subject>();
             Subjects.Add(new Subject()

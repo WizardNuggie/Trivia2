@@ -4,17 +4,24 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:Trivia2._0.Views"
-    Shell.FlyoutBehavior="Flyout">
-    <FlyoutItem Title="Home">
+    Shell.FlyoutBehavior="Disabled">
+    <FlyoutItem FlyoutDisplayOptions="AsMultipleItems">
+    <ShellContent
+        FlyoutItemIsVisible="False"
+        Title="Log In"
+        Icon="login.png"
+        ContentTemplate="{DataTemplate local:Login}"
+        Route="Log"/>
         <ShellContent
         Title="Home"
+        Icon="home"
         ContentTemplate="{DataTemplate local:HomePage}"
-        Route="MainPage" />
-    </FlyoutItem>
-    <FlyoutItem Title="Log In">
+        Route="Home"/>
         <ShellContent
-        Title="Log In"
-        ContentTemplate="{DataTemplate local:Login}"
-        Route="MainPage"/>
+        Title="Score Board"
+        Icon="highscore.png"
+        ContentTemplate="{DataTemplate local:BestScoresPage}"
+        Route="Leaderboard"/>
     </FlyoutItem>
+
 </Shell>

@@ -3,13 +3,13 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewmodel="clr-namespace:Trivia2._0.ViewModels"
              x:DataType="viewmodel:LogInViewModel"
+             Shell.PresentationMode="Modal"
              x:Class="Trivia2._0.Views.Login"
-             Title="Log In"
-             Shell.FlyoutItemIsVisible="{Binding IsNotLogged}">
+             Title="Log In">
     <Grid RowDefinitions="*,*,*,*,*,10*" ColumnDefinitions="*,*">
         <Label Text="Log In Page" Grid.ColumnSpan="2" Grid.Column="0" Grid.Row="0" HorizontalOptions="Center" FontSize="30"></Label>
         <Entry Placeholder="Username" Grid.ColumnSpan="2" Grid.Column="0" Grid.Row="1" HeightRequest="50" Text="{Binding Name}"></Entry>
-        <Entry Placeholder="Password" Grid.ColumnSpan="2" Grid.Column="0" Grid.Row="2" HeightRequest="50" Text="{Binding Pass}"></Entry>
+        <Entry Placeholder="Password" IsPassword="True" Grid.ColumnSpan="2" Grid.Column="0" Grid.Row="2" HeightRequest="50" Text="{Binding Pass}"></Entry>
         <Button Text="Cancel" Grid.Column="0" Grid.Row="4" Margin="5" HeightRequest="45" Command="{Binding CancelCommand}"></Button>
         <Button Text="Log in" Grid.Column="1" Grid.Row="4" Margin="5" HeightRequest="45" Command="{Binding LogInCommand}"></Button>
         <Label Text="{Binding Log}" TextColor="{Binding LogColor}" Grid.ColumnSpan="2" Grid.Column="0" Grid.Row="3" HorizontalOptions="Center"/>

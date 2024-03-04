@@ -9,6 +9,7 @@ namespace Trivia2._0
             InitializeComponent();
             Routing.RegisterRoute("Log", typeof(Login));
             Routing.RegisterRoute("Home", typeof(HomePage));
+            Routing.RegisterRoute("Leaderboard", typeof(BestScoresPage));
         }
     }
 }
