@@ -9,56 +9,64 @@
              Title="Leaderboard">
     <ScrollView x:Name="scrlview">
         <StackLayout>
-            <RefreshView IsRefreshing="{Binding IsRefreshing}" Command="{Binding RefreshCommand}">
+            <RefreshView x:Name="rfrsh" IsRefreshing="{Binding IsRefreshing}" Command="{Binding RefreshCommand}">
                 <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="0.1*"/>
-                        <RowDefinition Height="0.1*"/>
                         <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="7*"/>
+                        <RowDefinition Height="2*"/>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="0.5*"/>
                     </Grid.ColumnDefinitions>
-                    <Picker x:Name="rankPicker" HorizontalTextAlignment="Center" x:DataType="model:Rank" HeightRequest="50" ItemsSource="{Binding BindingContext.Ranks, Source={x:Reference scrlview}}" ItemDisplayBinding="{Binding RankName}" Title="Select a rank" SelectedItem="{Binding BindingContext.SelectedRank, Source={x:Reference scrlview}}" Grid.Row="0" Grid.Column="0"/>
+                    <Picker HorizontalTextAlignment="Center" x:DataType="model:Rank" HeightRequest="50" ItemsSource="{Binding BindingContext.Ranks, Source={x:Reference scrlview}}" ItemDisplayBinding="{Binding RankName}" Title="Select a rank" SelectedItem="{Binding BindingContext.SelectedRank, Source={x:Reference scrlview}}" Grid.Row="0" Grid.Column="0"/>
                     <Button HeightRequest="40" Text="Clear filter" Grid.Row="0" Grid.Column="1" Command="{Binding ClearFilterCommand}"/>
                     <Button HeightRequest="40" Text="Filter" Grid.Row="1" Grid.ColumnSpan="2" Command="{Binding FilterCommand}"/>
-                    <CollectionView x:Name="colView" Grid.Row="2" Grid.ColumnSpan="2" SelectedItem="{Binding SelectedUser}" ItemsSource="{Binding Users}" SelectionMode="Single">
+                    <Border Grid.Row="2" Grid.ColumnSpan="2" BackgroundColor="Azure">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Label FontAttributes="Bold" VerticalOptions="Center" HorizontalOptions="Center" Text="Username" Grid.Column="0"/>
+                            <Label FontAttributes="Bold" VerticalOptions="Center" HorizontalOptions="Center" Text="Rank" Grid.Column="1"/>
+                            <Label FontAttributes="Bold" VerticalOptions="Center" HorizontalOptions="Center" Text="Points" Grid.Column="2"/>
+                        </Grid>
+                    </Border>
+                    <CollectionView x:Name="colView" Grid.Row="3" Grid.ColumnSpan="2" SelectedItem="{Binding SelectedUser}" ItemsSource="{Binding Users}" SelectionMode="Single">
                         <CollectionView.EmptyView>
                             <Image Source="nousers.png"/>
                         </CollectionView.EmptyView>
                         <CollectionView.ItemTemplate>
                             <DataTemplate x:DataType="model:User">
-                                <Border HeightRequest="130" Padding="4" Margin="4,5">
+                                <Border HeightRequest="130" Padding="4" Margin="4,5" BackgroundColor="AliceBlue">
                                     <Grid>
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="*"/>
-                                            <RowDefinition Height="*"/>
-                                        </Grid.RowDefinitions>
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="*"/>
                                             <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*"/>
                                         </Grid.ColumnDefinitions>
-                                        <Label Margin="3" Grid.Column="0" Grid.Row="0">
+                                        <Label Margin="3" HorizontalOptions="Center" VerticalOptions="Center">
                                             <Label.FormattedText>
                                                 <FormattedString>
-                                                    <Span Text="Username: " FontAttributes="Bold"/>
                                                     <Span Text="{Binding Username}"/>
                                                 </FormattedString>
                                             </Label.FormattedText>
                                         </Label>
-                                        <Label Margin="3" Grid.Column="0" Grid.Row="1">
+                                        <Label Margin="3" Grid.Column="1" HorizontalOptions="Center" VerticalOptions="Center">
                                             <Label.FormattedText>
                                                 <FormattedString>
-                                                    <Span Text="Rank: " FontAttributes="Bold"/>
-                                                    <Span Text="{Binding BindingContext.RankName, Source={x:Reference rankPicker}}"/>
+                                                    <Span Text="{Binding Rank.RankName}"/>
                                                 </FormattedString>
                                             </Label.FormattedText>
                                         </Label>
-                                        <Label Margin="3" Grid.Column="1" Grid.Row="0">
+                                        <Label Margin="3" Grid.Column="2" HorizontalOptions="Center" VerticalOptions="Center">
                                             <Label.FormattedText>
                                                 <FormattedString>
-                                                    <Span Text="Points: " FontAttributes="Bold"/>
                                                     <Span Text="{Binding Points}"/>
                                                 </FormattedString>
                                             </Label.FormattedText>
@@ -68,6 +76,22 @@
                             </DataTemplate>
                         </CollectionView.ItemTemplate>
                     </CollectionView>
+                    <Border Grid.ColumnSpan="2" Grid.Row="4" BackgroundColor="BlanchedAlmond" Margin="5">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Label FontAttributes="Bold" Text="Email" HorizontalOptions="Center" VerticalOptions="Center"/>
+                            <Label FontAttributes="Bold" Text="Question Added" Grid.Column="1" HorizontalOptions="Center" VerticalOptions="Center"/>
+                            <Label Text="{Binding SelectedUser.Email}" Grid.Row="1" HorizontalOptions="Center" VerticalOptions="Center"/>
+                            <Label Text="{Binding SelectedUser.Questionsadded}" Grid.Column="1" Grid.Row="1" HorizontalOptions="Center" VerticalOptions="Center"/>
+                        </Grid>
+                    </Border>
                 </Grid>
             </RefreshView>
         </StackLayout>

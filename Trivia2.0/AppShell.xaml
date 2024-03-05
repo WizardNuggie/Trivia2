@@ -27,5 +27,12 @@
         ContentTemplate="{DataTemplate local:BestScoresPage}"
         Route="Leaderboard"/>
     </FlyoutItem>
+    <FlyoutItem
+        Title="Questions"
+        Icon="questions.png">
+        <ShellContent
+        ContentTemplate="{DataTemplate local:UserQuestionsPage}"
+        Route="Questions"/>
+    </FlyoutItem>
 
 </Shell>

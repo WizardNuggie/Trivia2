@@ -6,6 +6,7 @@ namespace Trivia2._0.ViewModels;
 
 public class LogInViewModel : ViewModel
 {
+	private Service service;
 	private string name;
 	private string pass;
 	private string log;
@@ -17,15 +18,15 @@ public class LogInViewModel : ViewModel
 	public ICommand LogInCommand {  get; private set; }
 	public ICommand CancelCommand {  get; private set; }
 	private User user;
-	public LogInViewModel()
+	public LogInViewModel(Service s)
 	{
+		service = s;
 		user = new User();
 		LogInCommand = new Command(async () => await LogIn(), () => !string.IsNullOrEmpty(Name) && !string.IsNullOrEmpty(Pass));
 		CancelCommand = new Command(Cancel, () => !string.IsNullOrEmpty(Name) || !string.IsNullOrEmpty(Pass));
 	}
 	private async Task LogIn()
 	{
-		Service service = new Service();
 		user.Username = name;
 		user.Pswrd = pass;
 		if (service.LogUser(user.Username, user.Pswrd))

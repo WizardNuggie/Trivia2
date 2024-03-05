@@ -6,6 +6,7 @@ namespace Trivia2._0.Models;
 
 public partial class User
 {
+    public int Id { get; set; }
     public string Email { get; set; }
     public string Pswrd { get; set; }
     public string Username { get; set; }

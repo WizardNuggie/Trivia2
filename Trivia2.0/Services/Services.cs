@@ -27,6 +27,39 @@ namespace Trivia2._0.Services
             questionStatusService = new QuestionStatusService();
             rankService = new RankService();
             subjectService = new SubjectService();
+            AddPlayerToQuestions();
+            AddRanksToPlayers();
+            AddStatusesToQuestions();
+            AddSubjectsToQuestions();
+
+        }
+        private async void AddPlayerToQuestions()
+        {
+            foreach (Question q in Questions)
+            {
+                q.User = Players.Where(x => x.Id == q.Id).FirstOrDefault();
+            }
+        }
+        private async void AddStatusesToQuestions()
+        {
+            foreach (Question q in Questions)
+            {
+                q.Status = QuestionStatuses.Where(x => x.Id == q.StatusId).FirstOrDefault();
+            }
+        }
+        private async void AddRanksToPlayers()
+        {
+            foreach (User p in Players)
+            {
+                p.Rank = Ranks.Where(x => x.Rankid == p.Rankid).FirstOrDefault();
+            }
+        }
+        private async void AddSubjectsToQuestions()
+        {
+            foreach (Question q in Questions)
+            {
+                q.Subject = Subjects.Where(x => x.Id == q.SubjectId).FirstOrDefault();
+            }
         }
         public bool LogUser(string Username, string password)
         {
@@ -40,127 +73,132 @@ namespace Trivia2._0.Services
                 return false;
             }
         }
-    }
-    internal class PlayerService
-    {
-        public List<User> Players { get; set; }
-        public PlayerService()
+        internal class PlayerService
         {
-            FillList();
-        }
-        private void FillList()
-        {
-            Players = new List<User>
+            public List<User> Players { get; set; }
+            public PlayerService()
             {
+                FillList();
+            }
+            private void FillList()
+            {
+                Players = new List<User>
+                {
                 new User()
                 {
+                    Id = 0,
                     Email = "talkazyo@gmail.com",
                     Pswrd = "12345678",
                     Username = "Ro",
                     Rankid = 1,
                     Points = 0,
+                    Questionsadded = 5,
                 },
                 new User()
                 {
+                    Id = 1,
                     Email = "nobitches@gmail.com",
                     Pswrd = "1234",
                     Username = "MegaMind",
                     Rankid = 3,
                     Points = 0,
+                    Questionsadded = 0,
                 },
                 new User()
                 {
+                    Id = 2,
                     Email = "hola@gmail.com",
                     Pswrd = "12345",
                     Username = "Hola",
                     Rankid = 3,
                     Points = 10,
+                    Questionsadded = 0,
                 }
-            };
+                };
+            }
         }
-    }
-    internal class QuestionService
-    {
-        public List<Question> Questions { get; set; }
-        public QuestionService()
+        internal class QuestionService
         {
-            FillList();
+            public List<Question> Questions { get; set; }
+            public QuestionService()
+            {
+                FillList();
+            }
+            private void FillList()
+            {
+                Questions = new List<Question>();
+                Questions.Add(new Question()
+                {
+                    Id = 1,
+                    UserId = 1,
+                    RightAnswer = "Usain Bolt",
+                    WrongAnswer1 = "Tyson Gay",
+                    WrongAnswer2 = "Yohan Blake",
+                    WrongAnswer3 = "Asafa Powell",
+                    Text = "Who holds the current world record for the fastest 100 meters run?",
+                    SubjectId = 1,
+                    StatusId = 2
+                });
+                Questions.Add(new Question()
+                {
+                    Id = 2,
+                    UserId = 1,
+                    RightAnswer = "Joe Biden",
+                    WrongAnswer1 = "Donald J Trump",
+                    WrongAnswer2 = "Barak Obama",
+                    WrongAnswer3 = "George Washington",
+                    Text = "Who is the current president of the USA?",
+                    SubjectId = 2,
+                    StatusId = 2
+                });
+                Questions.Add(new Question()
+                {
+                    Id = 3,
+                    UserId = 1,
+                    RightAnswer = "6 million",
+                    WrongAnswer1 = "5 million",
+                    WrongAnswer2 = "7 million",
+                    WrongAnswer3 = "8 million",
+                    Text = "How many jews did Hitler kill during the holocaust?",
+                    SubjectId = 3,
+                    StatusId = 2
+                });
+                Questions.Add(new Question()
+                {
+                    Id = 4,
+                    UserId = 1,
+                    RightAnswer = "118",
+                    WrongAnswer1 = "120",
+                    WrongAnswer2 = "125",
+                    WrongAnswer3 = "112",
+                    Text = "How many elements are in the periodic table?",
+                    SubjectId = 4,
+                    StatusId = 2
+                });
+                Questions.Add(new Question()
+                {
+                    Id = 5,
+                    UserId = 1,
+                    RightAnswer = "6",
+                    WrongAnswer1 = "5",
+                    WrongAnswer2 = "7",
+                    WrongAnswer3 = "8",
+                    Text = "How many classes are there in 11th grade in Ramon High School?",
+                    SubjectId = 5,
+                    StatusId = 2
+                });
+            }
         }
-        private void FillList()
+        internal class RankService
         {
-            Questions = new List<Question>();
-            Questions.Add(new Question()
+            public List<Rank> Ranks { get; set; }
+            public RankService()
             {
-                Id = 1,
-                UserId = 1,
-                RightAnswer = "Usain Bolt",
-                WrongAnswer1 = "Tyson Gay",
-                WrongAnswer2 = "Yohan Blake",
-                WrongAnswer3 = "Asafa Powell",
-                Text = "Who holds the current world record for the fastest 100 meters run?",
-                SubjectId = 1,
-                StatusId = 2
-            });
-            Questions.Add(new Question()
+                FillList();
+            }
+            private void FillList()
             {
-                Id = 2,
-                UserId = 1,
-                RightAnswer = "Joe Biden",
-                WrongAnswer1 = "Donald J Trump",
-                WrongAnswer2 = "Barak Obama",
-                WrongAnswer3 = "George Washington",
-                Text = "Who is the current president of the USA?",
-                SubjectId = 2,
-                StatusId = 2
-            });
-            Questions.Add(new Question()
-            {
-                Id = 3,
-                UserId = 1,
-                RightAnswer = "6 million",
-                WrongAnswer1 = "5 million",
-                WrongAnswer2 = "7 million",
-                WrongAnswer3 = "8 million",
-                Text = "How many jews did Hitler kill during the holocaust?",
-                SubjectId = 3,
-                StatusId = 2
-            });
-            Questions.Add(new Question()
-            {
-                Id = 4,
-                UserId = 1,
-                RightAnswer = "118",
-                WrongAnswer1 = "120",
-                WrongAnswer2 = "125",
-                WrongAnswer3 = "112",
-                Text = "How many elements are in the periodic table?",
-                SubjectId = 4,
-                StatusId = 2
-            });
-            Questions.Add(new Question()
-            {
-                Id = 5,
-                UserId = 1,
-                RightAnswer = "6",
-                WrongAnswer1 = "5",
-                WrongAnswer2 = "7",
-                WrongAnswer3 = "8",
-                Text = "How many classes are there in 11th grade in Ramon High School?",
-                SubjectId = 5,
-                StatusId = 2
-            });
-        }
-    }
-    internal class RankService
-    {
-        public List<Rank> Ranks { get; set; }
-        public RankService()
-        {
-            FillList();
-        }
-        private void FillList()
-        {
-            Ranks = new List<Rank>
+                Ranks = new List<Rank>
             {
                 new Rank()
                 {
@@ -178,70 +216,71 @@ namespace Trivia2._0.Services
                     RankName = "Rookie"
                 }
             };
+            }
         }
-    }
-    internal class QuestionStatusService
-    {
-        public List<Status> QuestionStatuses { get; set; }
-        public QuestionStatusService()
+        internal class QuestionStatusService
         {
-            FillList();
+            public List<Status> QuestionStatuses { get; set; }
+            public QuestionStatusService()
+            {
+                FillList();
+            }
+            private void FillList()
+            {
+                QuestionStatuses = new List<Status>();
+                QuestionStatuses.Add(new Status()
+                {
+                    Id = 1,
+                    CurrentStatus = "Approved"
+                });
+                QuestionStatuses.Add(new Status()
+                {
+                    Id = 2,
+                    CurrentStatus = "Pending"
+                });
+                QuestionStatuses.Add(new Status()
+                {
+                    Id = 3,
+                    CurrentStatus = "Denied"
+                });
+            }
         }
-        private void FillList()
+        internal class SubjectService
         {
-            QuestionStatuses = new List<Status>();
-            QuestionStatuses.Add(new Status()
+            public List<Subject> Subjects { get; set; }
+            public SubjectService()
             {
-                Id = 1,
-                CurrentStatus = "Approved"
-            });
-            QuestionStatuses.Add(new Status()
+                FillList();
+            }
+            private void FillList()
             {
-                Id = 2,
-                CurrentStatus = "Pending"
-            });
-            QuestionStatuses.Add(new Status()
-            {
-                Id = 3,
-                CurrentStatus = "Denied"
-            });
-        }
-    }
-    internal class SubjectService
-    {
-        public List<Subject> Subjects { get; set; }
-        public SubjectService()
-        {
-            FillList();
-        }
-        private void FillList()
-        {
-            Subjects = new List<Subject>();
-            Subjects.Add(new Subject()
-            {
-                Id = 1,
-                SubjectName = "Sports"
-            });
-            Subjects.Add(new Subject()
-            {
-                Id = 2,
-                SubjectName = "Politics"
-            });
-            Subjects.Add(new Subject()
-            {
-                Id = 3,
-                SubjectName = "History"
-            });
-            Subjects.Add(new Subject()
-            {
-                Id = 4,
-                SubjectName = "Science"
-            });
-            Subjects.Add(new Subject()
-            {
-                Id = 5,
-                SubjectName = "Ramon"
-            });
+                Subjects = new List<Subject>();
+                Subjects.Add(new Subject()
+                {
+                    Id = 1,
+                    SubjectName = "Sports"
+                });
+                Subjects.Add(new Subject()
+                {
+                    Id = 2,
+                    SubjectName = "Politics"
+                });
+                Subjects.Add(new Subject()
+                {
+                    Id = 3,
+                    SubjectName = "History"
+                });
+                Subjects.Add(new Subject()
+                {
+                    Id = 4,
+                    SubjectName = "Science"
+                });
+                Subjects.Add(new Subject()
+                {
+                    Id = 5,
+                    SubjectName = "Ramon"
+                });
+            }
         }
     }
 }

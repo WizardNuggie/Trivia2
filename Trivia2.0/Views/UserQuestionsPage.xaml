@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodel="clr-namespace:Trivia2._0.ViewModels"
+             xmlns:model="clr-namespace:Trivia2._0.Models"
+             x:DataType="viewmodel:UserQuestionsPageViewModel"
+             x:Class="Trivia2._0.Views.UserQuestionsPage"
+             Shell.FlyoutBehavior="Flyout"
+             Title="Questions">
+    <ScrollView x:Name="scrlview">
+        <StackLayout>
+            <RefreshView>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="10*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="0.5*"/>
+                    </Grid.ColumnDefinitions>
+                    <Picker HorizontalTextAlignment="Center" x:DataType="model:Subject" HeightRequest="50" ItemsSource="{Binding BindingContext.Subjects, Source={x:Reference scrlview}}" ItemDisplayBinding="{Binding SubjectName}" Title="Select a subject" SelectedItem="{Binding BindingContext.SelectedSubject, Source={x:Reference scrlview}}" Grid.Row="0" Grid.Column="0"/>
+                    <Button HeightRequest="40" Text="Clear filter" Grid.Row="0" Grid.Column="1" Command="{Binding ClearFilterCommand}"/>
+                    <Button HeightRequest="40" Text="Filter" Grid.Row="1" Grid.ColumnSpan="2" Command="{Binding FilterCommand}"/>
+                </Grid>
+            </RefreshView>
+        </StackLayout>
+    </ScrollView>
+</ContentPage>

@@ -10,6 +10,7 @@ namespace Trivia2._0
             Routing.RegisterRoute("Log", typeof(Login));
             Routing.RegisterRoute("Home", typeof(HomePage));
             Routing.RegisterRoute("Leaderboard", typeof(BestScoresPage));
+            Routing.RegisterRoute("Questions", typeof(UserQuestionsPage));
         }
     }
 }

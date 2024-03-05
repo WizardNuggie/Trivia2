@@ -2,19 +2,17 @@ using System.Collections.ObjectModel;
 using System.Windows.Input;
 using Trivia2._0.Models;
 using Trivia2._0.Services;
-using Xamarin.Google.Crypto.Tink.Signature;
 
 namespace Trivia2._0.ViewModels;
 
 public class BestScoresPageViewModel : ViewModel
 {
-	private Service service;
+    private Service service;
 	private bool isRefreshing;
 	private Rank selectedRank;
 	private User selectedUser;
-	public ObservableCollection<User> Users { get; set; }
-	public List<Rank> Ranks { get; set; }
-	public List<string> RanksNames {  get; set; }
+	public ObservableCollection<User> Users { get; private set; }
+	public List<Rank> Ranks { get; private set; }
     public bool IsRefreshing { get => isRefreshing; set { isRefreshing = value; OnPropertyChanged(); } }
 	public Rank SelectedRank { get => selectedRank; set { selectedRank = value; OnPropertyChanged(); ((Command)FilterCommand).ChangeCanExecute(); ((Command)ClearFilterCommand).ChangeCanExecute(); } }
 	public User SelectedUser { get => selectedUser; set { selectedUser = value; OnPropertyChanged(); } }
@@ -25,7 +23,6 @@ public class BestScoresPageViewModel : ViewModel
 	{
 		service = s;
 		Ranks = new List<Rank>();
-		RanksNames = new List<string>();
 		Users = new ObservableCollection<User>();
 		IsRefreshing = false;
 		RefreshCommand = new Command(async () => await Refresh());
@@ -34,7 +31,6 @@ public class BestScoresPageViewModel : ViewModel
 		foreach (Rank rank in service.Ranks)
 		{
 			Ranks.Add(rank);
-			RanksNames.Add(rank.RankName);
 		}
 		Refresh();
 	}
