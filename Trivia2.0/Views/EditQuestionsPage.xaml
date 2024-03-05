@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodel="clr-namespace:Trivia2._0.ViewModels"
+             xmlns:model="clr-namespace:Trivia2._0.Models"
+             x:DataType="viewmodel:EditQuestionsPageViewModel"
+             x:Class="Trivia2._0.Views.EditQuestionsPage"
+             Title="Edit Question">
+    <RefreshView IsRefreshing="{Binding IsRefreshing}" Command="{Binding RefreshCommand}">
+    <ScrollView>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                 <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.7*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Border BackgroundColor="AliceBlue" Padding="3">
+                <Label HorizontalTextAlignment="Center" VerticalOptions="Center" HorizontalOptions="Center" Text="Text" FontAttributes="Bold"/>
+            </Border>
+            <Border Grid.Column="1" Padding="3">
+            <Label HorizontalTextAlignment="Center" VerticalOptions="Center" HorizontalOptions="Center" Text="{Binding Question.Text}"/>
+            </Border>
+            <Border Grid.Column="2" Padding="3">
+                <Entry Placeholder="Enter new text" Text="{Binding NewQuestion.Text}" Grid.Column="2" HeightRequest="50" VerticalOptions="Center" HorizontalOptions="Center"/>
+            </Border>
+            <Border BackgroundColor="AliceBlue" Grid.Row="1" Padding="3">
+                <Label HorizontalTextAlignment="Center" VerticalOptions="Center" Text="Correct Answer" FontAttributes="Bold"/>
+            </Border>
+            <Border Grid.Column="1" Grid.Row="1" Padding="3">
+            <Label HorizontalTextAlignment="Center" VerticalOptions="Center" HorizontalOptions="Center" Text="{Binding Question.RightAnswer}"/>
+            </Border>
+            <Border Grid.Column="2" Grid.Row="1" Padding="3">
+                <Entry Placeholder="Enter new answer" Text="{Binding NewQuestion.RightAnswer}" Grid.Row="1" Grid.Column="2" VerticalOptions="Center" HorizontalOptions="Center"/>
+            </Border>
+            <Border BackgroundColor="AliceBlue" Grid.Row="2" Padding="3">
+                <Label HorizontalTextAlignment="Center" VerticalOptions="Center" Text="Wrong Answer 1" FontAttributes="Bold"/>
+            </Border>
+            <Border Grid.Column="1" Grid.Row="2" Padding="3">
+                <Label HorizontalTextAlignment="Center" VerticalOptions="Center" HorizontalOptions="Center" Text="{Binding Question.WrongAnswer1}"/>
+            </Border>
+            <Border Grid.Column="2" Grid.Row="2" Padding="3">
+                <Entry Placeholder="Enter new answer" Text="{Binding NewQuestion.WrongAnswer1}" Grid.Row="2" Grid.Column="2" VerticalOptions="Center" HorizontalOptions="Center"/>
+            </Border>
+            <Border BackgroundColor="AliceBlue" Grid.Row="3" Padding="3">
+                <Label HorizontalTextAlignment="Center" VerticalOptions="Center" Text="Wrong Answer 2" FontAttributes="Bold"/>
+            </Border>
+            <Border Grid.Column="1" Grid.Row="3" Padding="3">
+                <Label HorizontalTextAlignment="Center" VerticalOptions="Center" HorizontalOptions="Center" Text="{Binding Question.WrongAnswer2}"/>
+            </Border>
+            <Border Grid.Column="2" Grid.Row="3" Padding="3">
+                    <Entry Placeholder="Enter new answer" Text="{Binding NewQuestion.WrongAnswer2}" Grid.Row="3" Grid.Column="2" VerticalOptions="Center" HorizontalOptions="Center"/>
+            </Border>
+            <Border BackgroundColor="AliceBlue" Grid.Row="4" Padding="3">
+                <Label HorizontalTextAlignment="Center" VerticalOptions="Center" Text="Wrong Answer 3" FontAttributes="Bold"/>
+            </Border>
+            <Border Grid.Column="1" Grid.Row="4" Padding="3">
+                <Label HorizontalTextAlignment="Center" VerticalOptions="Center" HorizontalOptions="Center" Text="{Binding Question.WrongAnswer3}"/>
+            </Border>
+            <Border Grid.Column="2" Grid.Row="4" Padding="3">
+                    <Entry Placeholder="Enter new answer" Text="{Binding NewQuestion.WrongAnswer3}" Grid.Row="4" Grid.Column="2" VerticalOptions="Center" HorizontalOptions="Center"/>
+            </Border>
+                <Border BackgroundColor="AliceBlue" Grid.Row="5" Padding="3">
+                    <Label HorizontalTextAlignment="Center" VerticalOptions="Center" Text="Subject" FontAttributes="Bold"/>
+                </Border>
+                <Border Grid.Column="1" Grid.Row="5" Padding="3">
+                    <Label HorizontalTextAlignment="Center" VerticalOptions="Center" HorizontalOptions="Center" Text="{Binding Question.Subject.SubjectName}"/>
+                </Border>
+                <Border Grid.Column="2" Grid.Row="5" Padding="3">
+                    <Entry Placeholder="Enter new subject" Text="{Binding NewQuestion.Subject.SubjectName}" Grid.Row="4" Grid.Column="2" VerticalOptions="Center" HorizontalOptions="Center"/>
+                </Border>
+                <!--<Label Grid.Row="6" Grid.ColumnSpan="3" HorizontalOptions="Center" VerticalOptions="Center" Text="{Binding Notif}"/>-->
+                <Border Stroke="Black" StrokeThickness="2.6" WidthRequest="390" HeightRequest="55" Grid.Row="6" Grid.ColumnSpan="3">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="7"/>
+                </Border.StrokeShape>
+                <ImageButton Source="savechanges.png" HeightRequest="40" Command="{Binding SaveChangesCommand}"/>
+            </Border>
+        </Grid>
+    </ScrollView>
+    </RefreshView>
+</ContentPage>

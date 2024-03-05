@@ -86,7 +86,7 @@ namespace Trivia2._0.Services
                 {
                 new User()
                 {
-                    Id = 0,
+                    Id = 1,
                     Email = "talkazyo@gmail.com",
                     Pswrd = "12345678",
                     Username = "Ro",
@@ -96,7 +96,7 @@ namespace Trivia2._0.Services
                 },
                 new User()
                 {
-                    Id = 1,
+                    Id = 2,
                     Email = "nobitches@gmail.com",
                     Pswrd = "1234",
                     Username = "MegaMind",
@@ -106,7 +106,7 @@ namespace Trivia2._0.Services
                 },
                 new User()
                 {
-                    Id = 2,
+                    Id = 3,
                     Email = "hola@gmail.com",
                     Pswrd = "12345",
                     Username = "Hola",

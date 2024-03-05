@@ -11,6 +11,7 @@ namespace Trivia2._0
             Routing.RegisterRoute("Home", typeof(HomePage));
             Routing.RegisterRoute("Leaderboard", typeof(BestScoresPage));
             Routing.RegisterRoute("Questions", typeof(UserQuestionsPage));
+            Routing.RegisterRoute("Edit", typeof(EditQuestionsPage));
         }
     }
 }

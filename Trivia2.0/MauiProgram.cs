@@ -25,11 +25,13 @@ namespace Trivia2._0
             builder.Services.AddTransient<Login>();
             builder.Services.AddTransient<BestScoresPage>();
             builder.Services.AddTransient<UserQuestionsPage>();
+            builder.Services.AddTransient<EditQuestionsPage>();
 
             //ViewModels
             builder.Services.AddTransient<LogInViewModel>();
             builder.Services.AddTransient<BestScoresPageViewModel>();
             builder.Services.AddTransient<UserQuestionsPageViewModel>();
+            builder.Services.AddTransient<EditQuestionsPageViewModel>();
 
 
 #if DEBUG
