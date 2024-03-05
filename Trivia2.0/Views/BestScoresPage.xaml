@@ -13,13 +13,61 @@
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="0.1*"/>
+                        <RowDefinition Height="0.1*"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="0.5*"/>
                     </Grid.ColumnDefinitions>
-                    <Picker x:DataType="model:Rank" HeightRequest="50" ItemsSource="{Binding BindingContext.Ranks, Source={x:Reference scrlview}}" ItemDisplayBinding="{Binding RankName}" Title="Select a rank" SelectedItem="{Binding BindingContext.SelectedRank, Source={x:Reference scrlview}}" Grid.Row="0" Grid.Column="0"/>
+                    <Picker x:Name="rankPicker" HorizontalTextAlignment="Center" x:DataType="model:Rank" HeightRequest="50" ItemsSource="{Binding BindingContext.Ranks, Source={x:Reference scrlview}}" ItemDisplayBinding="{Binding RankName}" Title="Select a rank" SelectedItem="{Binding BindingContext.SelectedRank, Source={x:Reference scrlview}}" Grid.Row="0" Grid.Column="0"/>
+                    <Button HeightRequest="40" Text="Clear filter" Grid.Row="0" Grid.Column="1" Command="{Binding ClearFilterCommand}"/>
+                    <Button HeightRequest="40" Text="Filter" Grid.Row="1" Grid.ColumnSpan="2" Command="{Binding FilterCommand}"/>
+                    <CollectionView x:Name="colView" Grid.Row="2" Grid.ColumnSpan="2" SelectedItem="{Binding SelectedUser}" ItemsSource="{Binding Users}" SelectionMode="Single">
+                        <CollectionView.EmptyView>
+                            <Image Source="nousers.png"/>
+                        </CollectionView.EmptyView>
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate x:DataType="model:User">
+                                <Border HeightRequest="130" Padding="4" Margin="4,5">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*"/>
+                                            <RowDefinition Height="*"/>
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Label Margin="3" Grid.Column="0" Grid.Row="0">
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span Text="Username: " FontAttributes="Bold"/>
+                                                    <Span Text="{Binding Username}"/>
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
+                                        <Label Margin="3" Grid.Column="0" Grid.Row="1">
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span Text="Rank: " FontAttributes="Bold"/>
+                                                    <Span Text="{Binding BindingContext.RankName, Source={x:Reference rankPicker}}"/>
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
+                                        <Label Margin="3" Grid.Column="1" Grid.Row="0">
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span Text="Points: " FontAttributes="Bold"/>
+                                                    <Span Text="{Binding Points}"/>
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
                 </Grid>
             </RefreshView>
         </StackLayout>

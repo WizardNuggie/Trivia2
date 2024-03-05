@@ -50,23 +50,33 @@ namespace Trivia2._0.Services
         }
         private void FillList()
         {
-            Players = new List<User>();
-            Players.Add(new User()
+            Players = new List<User>
             {
-                Email = "talkazyo@gmail.com",
-                Pswrd = "12345678",
-                Username = "Ro",
-                Rankid = 1,
-                Points = 0,
-            });
-            Players.Add(new User()
-            {
-                Email = "nobitches@gmail.com",
-                Pswrd = "1234",
-                Username = "MegaMind",
-                Rankid = 3,
-                Points = 0,
-            });
+                new User()
+                {
+                    Email = "talkazyo@gmail.com",
+                    Pswrd = "12345678",
+                    Username = "Ro",
+                    Rankid = 1,
+                    Points = 0,
+                },
+                new User()
+                {
+                    Email = "nobitches@gmail.com",
+                    Pswrd = "1234",
+                    Username = "MegaMind",
+                    Rankid = 3,
+                    Points = 0,
+                },
+                new User()
+                {
+                    Email = "hola@gmail.com",
+                    Pswrd = "12345",
+                    Username = "Hola",
+                    Rankid = 3,
+                    Points = 10,
+                }
+            };
         }
     }
     internal class QuestionService

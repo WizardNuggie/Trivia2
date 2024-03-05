@@ -5,21 +5,25 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:Trivia2._0.Views"
     Shell.FlyoutBehavior="Disabled">
-    <FlyoutItem FlyoutDisplayOptions="AsMultipleItems">
-    <ShellContent
+    <FlyoutItem
         FlyoutItemIsVisible="False"
         Title="Log In"
-        Icon="login.png"
+        Icon="login.png">
+        <ShellContent
         ContentTemplate="{DataTemplate local:Login}"
         Route="Log"/>
-        <ShellContent
+    </FlyoutItem>
+    <FlyoutItem
         Title="Home"
-        Icon="home"
+        Icon="home">
+        <ShellContent
         ContentTemplate="{DataTemplate local:HomePage}"
         Route="Home"/>
-        <ShellContent
+    </FlyoutItem>
+    <FlyoutItem
         Title="Score Board"
-        Icon="highscore.png"
+        Icon="highscore.png">
+        <ShellContent
         ContentTemplate="{DataTemplate local:BestScoresPage}"
         Route="Leaderboard"/>
     </FlyoutItem>
