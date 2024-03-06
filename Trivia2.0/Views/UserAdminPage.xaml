@@ -4,6 +4,7 @@
              xmlns:viewmodel="clr-namespace:Trivia2._0.ViewModels"
              xmlns:model="clr-namespace:Trivia2._0.Models"
              x:DataType="viewmodel:UserAdminPageViewModel"
+             Shell.FlyoutBehavior="Flyout"
              x:Class="Trivia2._0.Views.UserAdminPage"
              Title="Manage Users">
     <ScrollView x:Name="scrlview">
@@ -21,15 +22,21 @@
                         <ColumnDefinition Width="0.5*"/>
                         <ColumnDefinition Width="0.5*"/>
                     </Grid.ColumnDefinitions>
-                    <Picker HorizontalTextAlignment="Center" x:DataType="model:Rank" HeightRequest="50" ItemsSource="{Binding BindingContext.Ranks, Source={x:Reference scrlview}}" ItemDisplayBinding="{Binding RankName}" Title="Select a subject" SelectedItem="{Binding BindingContext.SelectedSubject, Source={x:Reference scrlview}}"/>
+                    <Picker HorizontalTextAlignment="Center" x:DataType="model:Rank" HeightRequest="50" ItemsSource="{Binding BindingContext.Ranks, Source={x:Reference scrlview}}" ItemDisplayBinding="{Binding RankName}" Title="Select a rank" SelectedItem="{Binding BindingContext.SelectedRank, Source={x:Reference scrlview}}"/>
                     <ImageButton HeightRequest="55" WidthRequest="55" Grid.Column="2" CornerRadius="20" Source="cancel.png" Command="{Binding ClearFilterCommand}"/>
-                    <Border Stroke="{Binding FilterColor}" StrokeThickness="2.6" WidthRequest="55" HeightRequest="55" Grid.Column="1">
+                    <Border Stroke="{Binding FilterColor}" StrokeThickness="2.4" WidthRequest="55" HeightRequest="55" Grid.Column="1">
                         <Border.StrokeShape>
                             <RoundRectangle CornerRadius="7"/>
                         </Border.StrokeShape>
-                        <ImageButton Source="filter.png" HeightRequest="40"  Command="{Binding FilterCommand}"/>
+                        <ImageButton Source="filter.png" HeightRequest="35"  Command="{Binding FilterCommand}"/>
                     </Border>
-                    <Border Grid.Row="1" Grid.ColumnSpan="3" BackgroundColor="Azure">
+                    <Border Stroke="Black" StrokeThickness="2.6" WidthRequest="390" HeightRequest="55" Grid.Row="1" Grid.ColumnSpan="3">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="7"/>
+                        </Border.StrokeShape>
+                        <ImageButton Source="adduser.png" HeightRequest="40" Command="{Binding AddUserCommand}"/>
+                    </Border>
+                    <Border Grid.Row="2" Grid.ColumnSpan="3" BackgroundColor="Azure">
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
@@ -43,7 +50,7 @@
                             <Label FontAttributes="Bold" VerticalOptions="Center" HorizontalOptions="Center" Text="Points" Grid.Column="3"/>
                         </Grid>
                     </Border>
-                    <CollectionView x:Name="colview" Grid.Row="2" Grid.ColumnSpan="3" ItemsSource="{Binding Users}">
+                    <CollectionView x:Name="colview" Grid.Row="3" Grid.ColumnSpan="3" ItemsSource="{Binding Users}">
                         <CollectionView.EmptyView>
                             <Image Source="nousers.png"/>
                         </CollectionView.EmptyView>
@@ -52,8 +59,8 @@
                                 <SwipeView>
                                     <SwipeView.LeftItems>
                                         <SwipeItems>
-                                            <SwipeItem IconImageSource="approve.png" Command="{Binding BindingContext.ResetPointsCommand, Source={x:Reference scrlview}}" CommandParameter="{Binding .}"/>
-                                            <SwipeItem IconImageSource="decline.png" Command="{Binding BindingContext.DeleteCommand, Source={x:Reference scrlview}}" CommandParameter="{Binding .}"/>
+                                            <SwipeItem IconImageSource="reset.png" Command="{Binding BindingContext.ResetPointsCommand, Source={x:Reference scrlview}}" CommandParameter="{Binding .}"/>
+                                            <SwipeItem IconImageSource="delete.png" Command="{Binding BindingContext.DeleteCommand, Source={x:Reference scrlview}}" CommandParameter="{Binding .}"/>
                                         </SwipeItems>
                                     </SwipeView.LeftItems>
                                     <Border HeightRequest="130" Padding="4" Margin="4,5" BackgroundColor="AliceBlue">

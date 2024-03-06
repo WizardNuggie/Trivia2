@@ -61,9 +61,10 @@ public class UserQuestionsPageViewModel : ViewModel
 	private async Task Filter()
 	{
         Questions.Clear();
+		userQuestions = service.Questions;
         foreach (Question question in userQuestions)
         {
-            if (question.SubjectId == SelectedSubject.Id)
+            if (question.Subject.Id == SelectedSubject.Id)
                 Questions.Add(question);
         }
     }
@@ -71,6 +72,7 @@ public class UserQuestionsPageViewModel : ViewModel
     {
 		IsRefreshing = true;
 		Questions.Clear();
+        userQuestions = service.Questions;
         foreach (Question question in userQuestions)
 		{
 			Questions.Add(question);

@@ -13,7 +13,7 @@ public class UserAdminPageViewModel : ViewModel
     private Color filterColor;
     public List<Rank> Ranks { get; private set; }
     public bool IsRefreshing { get => isRefreshing; set { isRefreshing = value; OnPropertyChanged(); } }
-    public Rank SelectedRank { get => selectedRank; set { selectedRank = value; OnPropertyChanged(); ((Command)FilterCommand).ChangeCanExecute(); ((Command)ClearFilterCommand).ChangeCanExecute(); if (selectedSubject != null) FilterColor = Colors.Black; else FilterColor = Colors.DarkGray; } }
+    public Rank SelectedRank { get => selectedRank; set { selectedRank = value; OnPropertyChanged(); ((Command)FilterCommand).ChangeCanExecute(); ((Command)ClearFilterCommand).ChangeCanExecute(); if (selectedRank != null) FilterColor = Colors.Black; else FilterColor = Colors.DarkGray; } }
     public Color FilterColor { get => filterColor; set { filterColor = value; OnPropertyChanged(); } }
     public ObservableCollection<User> Users { get; private set; }
     public ICommand RefreshCommand { get; set; }
@@ -21,6 +21,7 @@ public class UserAdminPageViewModel : ViewModel
     public ICommand ClearFilterCommand { get; set; }
     public ICommand ResetPointsCommand { get; set; }
     public ICommand DeleteCommand { get; set; }
+    public ICommand AddUserCommand { get; set; }
     public UserAdminPageViewModel(Service s)
 	{
         service = s;
@@ -33,6 +34,7 @@ public class UserAdminPageViewModel : ViewModel
         ClearFilterCommand = new Command(async () => await ClearFilter(), () => selectedRank != null);
         ResetPointsCommand = new Command((Object obj) => ResetPoints(obj));
         DeleteCommand = new Command((Object obj) => Delete(obj));
+        AddUserCommand = new Command(async () => await AddUser());
         foreach (Rank rank in service.Ranks)
         {
             Ranks.Add(rank);
@@ -41,6 +43,10 @@ public class UserAdminPageViewModel : ViewModel
         {
             Users.Add(user);
         }
+    }
+    private async Task AddUser()
+    {
+        await AppShell.Current.GoToAsync("AddUser");
     }
     private void ResetPoints(Object obj)
     {
@@ -51,11 +57,13 @@ public class UserAdminPageViewModel : ViewModel
     }
     private void Delete(Object obj)
     {
+        User usertodel = new User();
         foreach (User user in service.Players.Where(x => x.Id == ((User)obj).Id))
         {
             Users.Remove(user);
-            service.Players.Remove(user);
+            usertodel = user;
         }
+        service.Players.Remove(usertodel);
     }
     private async Task Refresh()
     {

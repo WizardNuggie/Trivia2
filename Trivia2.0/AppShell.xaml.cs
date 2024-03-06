@@ -14,6 +14,7 @@ namespace Trivia2._0
             Routing.RegisterRoute("Edit", typeof(EditQuestionsPage));
             Routing.RegisterRoute("Pending", typeof(ApproveQuestionsPage));
             Routing.RegisterRoute("Admin", typeof(UserAdminPage));
+            Routing.RegisterRoute("AddUser", typeof(AddUserPage));
         }
     }
 }

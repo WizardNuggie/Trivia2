@@ -35,24 +35,25 @@ namespace Trivia2._0.Services
         }
         public async void SaveEditedChanges(Question q, Question newQ)
         {
-            foreach (Question question in Questions.Where(x => x.Id == q.Id))
-            {
-                question.Text = newQ.Text;
-                question.RightAnswer = newQ.RightAnswer;
-                question.WrongAnswer1 = newQ.WrongAnswer1;
-                question.WrongAnswer2 = newQ.WrongAnswer2;
-                question.WrongAnswer3 = newQ.WrongAnswer3;
-                question.Subject = Subjects.Where(x => x.Id == newQ.SubjectId).FirstOrDefault();
-                question.SubjectId = newQ.SubjectId;
-                question.Status = QuestionStatuses.Where(x => x.Id == 2).FirstOrDefault();
-                question.StatusId = question.Status.Id;
-            }
+                int index = q.Id-1;
+                Questions.RemoveAt(index);
+                q.Text = newQ.Text;
+                q.RightAnswer = newQ.RightAnswer;
+                q.WrongAnswer1 = newQ.WrongAnswer1;
+                q.WrongAnswer2 = newQ.WrongAnswer2;
+                q.WrongAnswer3 = newQ.WrongAnswer3;
+                q.Subject = Subjects.Where(x => x.SubjectName == newQ.Subject.SubjectName).FirstOrDefault();
+                q.Subject.Id = Subjects.Where(x => x.SubjectName == newQ.Subject.SubjectName).FirstOrDefault().Id;
+                q.SubjectId = newQ.Subject.Id;
+                q.Status = QuestionStatuses.Where(x => x.Id == 2).FirstOrDefault();
+                q.StatusId = q.Status.Id;
+                Questions.Insert(index, q);
         }
         private async void AddPlayerToQuestions()
         {
             foreach (Question q in Questions)
             {
-                q.User = Players.Where(x => x.Id == q.Id).FirstOrDefault();
+                q.User = Players.Where(x => x.Id == q.UserId).FirstOrDefault();
             }
         }
         private async void AddStatusesToQuestions()

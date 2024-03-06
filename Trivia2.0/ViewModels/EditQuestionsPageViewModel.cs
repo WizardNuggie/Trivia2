@@ -45,6 +45,9 @@ public class EditQuestionsPageViewModel : ViewModel
 	}
 	private async Task SaveChanges()
 	{
+		bool needSave = false;
+		if (NewQuestion.Subject.SubjectName != null)
+			NewQuestion.Subject.Id = service.Subjects.Where(x => x.SubjectName == NewQuestion.Subject.SubjectName).FirstOrDefault().Id;
 		foreach (Question q in service.Questions.Where(x => x.Id == Question.Id))
 		{
             if (NewQuestion.Text == null || NewQuestion.Text == "")
@@ -70,13 +73,18 @@ public class EditQuestionsPageViewModel : ViewModel
             if (NewQuestion.Subject == null || !subjectNames.Contains(NewQuestion.Subject.SubjectName))
 			{
 				NewQuestion.Subject = Question.Subject;
-				NewQuestion.SubjectId = NewQuestion.Subject.Id;
+				NewQuestion.Subject.Id = Question.Subject.Id;
+				NewQuestion.SubjectId = Question.SubjectId;
             }
 			if (NewQuestion.Text != Question.Text || NewQuestion.RightAnswer != Question.RightAnswer || NewQuestion.WrongAnswer1 != Question.WrongAnswer1 || NewQuestion.WrongAnswer2 != Question.WrongAnswer2 || NewQuestion.WrongAnswer3 != Question.WrongAnswer3 || NewQuestion.SubjectId != Question.SubjectId)
 			{
-				service.SaveEditedChanges(q, NewQuestion);
+				needSave = true;
             }
         }
+		if (needSave)
+		{
+			service.SaveEditedChanges(Question, NewQuestion);
+		}
 		await AppShell.Current.GoToAsync("///Questions");
 	}
 }
