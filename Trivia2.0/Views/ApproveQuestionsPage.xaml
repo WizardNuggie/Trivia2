@@ -3,27 +3,26 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewmodel="clr-namespace:Trivia2._0.ViewModels"
              xmlns:model="clr-namespace:Trivia2._0.Models"
-             x:DataType="viewmodel:BestScoresPageViewModel"
+             x:DataType="viewmodel:ApproveQuestionsPageViewModel"
              Shell.FlyoutBehavior="Flyout"
-             x:Class="Trivia2._0.Views.BestScoresPage"
-             Title="Leaderboard">
+             x:Class="Trivia2._0.Views.ApproveQuestionsPage"
+             Title="Pending Questions">
     <ScrollView x:Name="scrlview">
         <StackLayout>
-            <RefreshView x:Name="rfrsh" IsRefreshing="{Binding IsRefreshing}" Command="{Binding RefreshCommand}">
+            <RefreshView IsRefreshing="{Binding IsRefreshing}" Command="{Binding RefreshCommand}">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="*"/>
-                        <RowDefinition Height="9*"/>
-                        <RowDefinition Height="3*"/>
+                        <RowDefinition Height="10*"/>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="0.5*"/>
                         <ColumnDefinition Width="0.5*"/>
                     </Grid.ColumnDefinitions>
-                    <Picker HorizontalTextAlignment="Center" x:DataType="model:Rank" HeightRequest="50" ItemsSource="{Binding BindingContext.Ranks, Source={x:Reference scrlview}}" ItemDisplayBinding="{Binding RankName}" Title="Select a rank" SelectedItem="{Binding BindingContext.SelectedRank, Source={x:Reference scrlview}}"/>
-                    <ImageButton HeightRequest="55" Source="cancel.png" Grid.Column="2" Command="{Binding ClearFilterCommand}"/>
+                    <Picker HorizontalTextAlignment="Center" x:DataType="model:Subject" HeightRequest="50" ItemsSource="{Binding BindingContext.Subjects, Source={x:Reference scrlview}}" ItemDisplayBinding="{Binding SubjectName}" Title="Select a subject" SelectedItem="{Binding BindingContext.SelectedSubject, Source={x:Reference scrlview}}"/>
+                    <ImageButton HeightRequest="55" WidthRequest="55" Grid.Column="2" CornerRadius="20" Source="cancel.png" Command="{Binding ClearFilterCommand}"/>
                     <Border Stroke="{Binding FilterColor}" StrokeThickness="2.6" WidthRequest="55" HeightRequest="55" Grid.Column="1">
                         <Border.StrokeShape>
                             <RoundRectangle CornerRadius="7"/>
@@ -37,17 +36,24 @@
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
-                            <Label FontAttributes="Bold" VerticalOptions="Center" HorizontalOptions="Center" Text="Username" Grid.Column="0"/>
-                            <Label FontAttributes="Bold" VerticalOptions="Center" HorizontalOptions="Center" Text="Rank" Grid.Column="1"/>
-                            <Label FontAttributes="Bold" VerticalOptions="Center" HorizontalOptions="Center" Text="Points" Grid.Column="2"/>
+                            <Label FontAttributes="Bold" VerticalOptions="Center" HorizontalOptions="Center" Text="Text" Grid.Column="0"/>
+                            <Label FontAttributes="Bold" VerticalOptions="Center" HorizontalOptions="Center" Text="Subject" Grid.Column="1"/>
+                            <Label FontAttributes="Bold" VerticalOptions="Center" HorizontalOptions="Center" Text="Status" Grid.Column="2"/>
                         </Grid>
                     </Border>
-                    <CollectionView x:Name="colView" Grid.Row="2" Grid.ColumnSpan="3" SelectedItem="{Binding SelectedUser}" ItemsSource="{Binding Users}" SelectionMode="Single">
+                    <CollectionView x:Name="colview" Grid.Row="2" Grid.ColumnSpan="3" ItemsSource="{Binding PenQs}">
                         <CollectionView.EmptyView>
-                            <Image Source="nousers.png"/>
+                            <Image Source="noquestions.png"/>
                         </CollectionView.EmptyView>
                         <CollectionView.ItemTemplate>
-                            <DataTemplate x:DataType="model:User">
+                            <DataTemplate x:DataType="model:Question">
+                                <SwipeView>
+                                    <SwipeView.LeftItems>
+                                        <SwipeItems>
+                                            <SwipeItem IconImageSource="approve.png" Command="{Binding BindingContext.ApproveCommand, Source={x:Reference scrlview}}" CommandParameter="{Binding .}"/>
+                                            <SwipeItem IconImageSource="decline.png" Command="{Binding BindingContext.DeclineCommand, Source={x:Reference scrlview}}" CommandParameter="{Binding .}"/>
+                                        </SwipeItems>
+                                    </SwipeView.LeftItems>
                                 <Border HeightRequest="130" Padding="4" Margin="4,5" BackgroundColor="AliceBlue">
                                     <Grid>
                                         <Grid.ColumnDefinitions>
@@ -58,45 +64,30 @@
                                         <Label Margin="3" HorizontalOptions="Center" VerticalOptions="Center">
                                             <Label.FormattedText>
                                                 <FormattedString>
-                                                    <Span Text="{Binding Username}"/>
+                                                    <Span Text="{Binding Text}"/>
                                                 </FormattedString>
                                             </Label.FormattedText>
                                         </Label>
                                         <Label Margin="3" Grid.Column="1" HorizontalOptions="Center" VerticalOptions="Center">
                                             <Label.FormattedText>
                                                 <FormattedString>
-                                                    <Span Text="{Binding Rank.RankName}"/>
+                                                    <Span Text="{Binding Subject.SubjectName}"/>
                                                 </FormattedString>
                                             </Label.FormattedText>
                                         </Label>
                                         <Label Margin="3" Grid.Column="2" HorizontalOptions="Center" VerticalOptions="Center">
                                             <Label.FormattedText>
                                                 <FormattedString>
-                                                    <Span Text="{Binding Points}"/>
+                                                    <Span Text="{Binding Status.CurrentStatus}"/>
                                                 </FormattedString>
                                             </Label.FormattedText>
                                         </Label>
                                     </Grid>
                                 </Border>
+                                </SwipeView>
                             </DataTemplate>
                         </CollectionView.ItemTemplate>
                     </CollectionView>
-                    <Border Grid.ColumnSpan="3" Grid.Row="3" BackgroundColor="BlanchedAlmond" Margin="5">
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="*"/>
-                                <RowDefinition Height="*"/>
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
-                            <Label FontAttributes="Bold" Text="Email" HorizontalOptions="Center" VerticalOptions="Center"/>
-                            <Label FontAttributes="Bold" Text="Question Added" Grid.Column="1" HorizontalOptions="Center" VerticalOptions="Center"/>
-                            <Label Text="{Binding SelectedUser.Email}" Grid.Row="1" HorizontalOptions="Center" VerticalOptions="Center"/>
-                            <Label Text="{Binding SelectedUser.Questionsadded}" Grid.Column="1" Grid.Row="1" HorizontalOptions="Center" VerticalOptions="Center"/>
-                        </Grid>
-                    </Border>
                 </Grid>
             </RefreshView>
         </StackLayout>

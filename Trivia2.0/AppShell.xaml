@@ -34,5 +34,12 @@
         ContentTemplate="{DataTemplate local:UserQuestionsPage}"
         Route="Questions"/>
     </FlyoutItem>
+    <FlyoutItem
+    Title="Pending Questions"
+    Icon="approvepage.png">
+        <ShellContent
+    ContentTemplate="{DataTemplate local:ApproveQuestionsPage}"
+    Route="Pending"/>
+    </FlyoutItem>
 
 </Shell>

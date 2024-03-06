@@ -71,10 +71,11 @@ public class UserQuestionsPageViewModel : ViewModel
     {
 		IsRefreshing = true;
 		Questions.Clear();
-		foreach (Question question in userQuestions)
+        foreach (Question question in userQuestions)
 		{
 			Questions.Add(question);
 		}
+		SelectedSubject = null;
 		IsRefreshing = false;
     }
 }

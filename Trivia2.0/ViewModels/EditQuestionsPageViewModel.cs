@@ -47,31 +47,43 @@ public class EditQuestionsPageViewModel : ViewModel
 	{
 		foreach (Question q in service.Questions.Where(x => x.Id == Question.Id))
 		{
-			if (NewQuestion.Text != null)
+			if (NewQuestion.Text != null && NewQuestion.Text != "")
 			{
 				q.Text = NewQuestion.Text;
+				q.Status = service.QuestionStatuses.Where(x => x.Id == 2).FirstOrDefault();
+				q.StatusId = 2;
             }
-            if (NewQuestion.RightAnswer != null)
+            if (NewQuestion.RightAnswer != null && NewQuestion.RightAnswer != "")
 			{
-                q.RightAnswer = NewQuestion.RightAnswer;     
-			}
-            if (NewQuestion.WrongAnswer1 != null)
+                q.RightAnswer = NewQuestion.RightAnswer;
+                q.Status = service.QuestionStatuses.Where(x => x.Id == 2).FirstOrDefault();
+                q.StatusId = 2;
+            }
+            if (NewQuestion.WrongAnswer1 != null && NewQuestion.WrongAnswer1 != "")
 			{
-                q.WrongAnswer1 = NewQuestion.WrongAnswer1;     
-			}
-            if (NewQuestion.WrongAnswer2 != null)
+                q.WrongAnswer1 = NewQuestion.WrongAnswer1;
+                q.Status = service.QuestionStatuses.Where(x => x.Id == 2).FirstOrDefault();
+                q.StatusId = 2;
+            }
+            if (NewQuestion.WrongAnswer2 != null && NewQuestion.WrongAnswer2 != "")
 			{
-                q.WrongAnswer2 = NewQuestion.WrongAnswer2;        
-			}
-            if (NewQuestion.WrongAnswer3 != null)
+                q.WrongAnswer2 = NewQuestion.WrongAnswer2;
+                q.Status = service.QuestionStatuses.Where(x => x.Id == 2).FirstOrDefault();
+                q.StatusId = 2;
+            }
+            if (NewQuestion.WrongAnswer3 != null && NewQuestion.WrongAnswer3 != "")
 			{
-                q.WrongAnswer3 = NewQuestion.WrongAnswer3;        
-			}
+                q.WrongAnswer3 = NewQuestion.WrongAnswer3;
+                q.Status = service.QuestionStatuses.Where(x => x.Id == 2).FirstOrDefault();
+                q.StatusId = 2;
+            }
             if (NewQuestion.Subject != null && subjectNames.Contains(NewQuestion.Subject.SubjectName))
 			{
                 q.Subject = service.Subjects.Where(x => x.SubjectName ==  NewQuestion.Subject.SubjectName).First();
 				q.SubjectId = q.Subject.Id;
-			}
+                q.Status = service.QuestionStatuses.Where(x => x.Id == 2).FirstOrDefault();
+                q.StatusId = 2;
+            }
         }
 		await AppShell.Current.GoToAsync("///Questions");
 	}

@@ -11,11 +11,13 @@ public class BestScoresPageViewModel : ViewModel
 	private bool isRefreshing;
 	private Rank selectedRank;
 	private User selectedUser;
+	private Color filterColor;
 	public ObservableCollection<User> Users { get; private set; }
 	public List<Rank> Ranks { get; private set; }
     public bool IsRefreshing { get => isRefreshing; set { isRefreshing = value; OnPropertyChanged(); } }
-	public Rank SelectedRank { get => selectedRank; set { selectedRank = value; OnPropertyChanged(); ((Command)FilterCommand).ChangeCanExecute(); ((Command)ClearFilterCommand).ChangeCanExecute(); } }
+	public Rank SelectedRank { get => selectedRank; set { selectedRank = value; OnPropertyChanged(); ((Command)FilterCommand).ChangeCanExecute(); ((Command)ClearFilterCommand).ChangeCanExecute(); if (SelectedRank != null) FilterColor = Colors.Black; else FilterColor = Colors.DarkGray; } }
 	public User SelectedUser { get => selectedUser; set { selectedUser = value; OnPropertyChanged(); } }
+	public Color FilterColor { get => filterColor; set {  filterColor = value; OnPropertyChanged(); } }
 	public ICommand RefreshCommand { get; set; }
 	public ICommand FilterCommand { get; set; }
 	public ICommand ClearFilterCommand { get; set; }
@@ -24,6 +26,7 @@ public class BestScoresPageViewModel : ViewModel
 		service = s;
 		Ranks = new List<Rank>();
 		Users = new ObservableCollection<User>();
+		FilterColor = Colors.DarkGray;
 		IsRefreshing = false;
 		RefreshCommand = new Command(async () => await Refresh());
 		FilterCommand = new Command(async () => await Filter(), () => SelectedRank != null);

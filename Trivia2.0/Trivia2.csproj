@@ -57,6 +57,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiXaml Update="Views\ApproveQuestionsPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Views\BestScoresPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
