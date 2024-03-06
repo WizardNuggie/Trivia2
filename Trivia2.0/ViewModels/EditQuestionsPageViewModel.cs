@@ -22,7 +22,7 @@ public class EditQuestionsPageViewModel : ViewModel
 	{
 		IsRefreshing = false;
 		service = s;
-		NewQuestion = new Question();
+		NewQuestion = new Question() {UserId = service.LoggedPlayer.Id, User = service.LoggedPlayer};
 		NewQuestion.Subject = new Subject();
 		subjectNames = new List<string>();
 		foreach (Subject sub in service.Subjects)
@@ -39,7 +39,7 @@ public class EditQuestionsPageViewModel : ViewModel
 		{
 			Question = q;
 		}
-		NewQuestion = new Question();
+		NewQuestion = new Question() { UserId = service.LoggedPlayer.Id, User = service.LoggedPlayer };
 		NewQuestion.Subject = new Subject();
 		IsRefreshing = false;
 	}
@@ -47,42 +47,34 @@ public class EditQuestionsPageViewModel : ViewModel
 	{
 		foreach (Question q in service.Questions.Where(x => x.Id == Question.Id))
 		{
-			if (NewQuestion.Text != null && NewQuestion.Text != "")
+            if (NewQuestion.Text == null || NewQuestion.Text == "")
 			{
-				q.Text = NewQuestion.Text;
-				q.Status = service.QuestionStatuses.Where(x => x.Id == 2).FirstOrDefault();
-				q.StatusId = 2;
+				NewQuestion.Text = Question.Text;
             }
-            if (NewQuestion.RightAnswer != null && NewQuestion.RightAnswer != "")
+            if (NewQuestion.RightAnswer == null || NewQuestion.RightAnswer == "")
 			{
-                q.RightAnswer = NewQuestion.RightAnswer;
-                q.Status = service.QuestionStatuses.Where(x => x.Id == 2).FirstOrDefault();
-                q.StatusId = 2;
+                NewQuestion.RightAnswer = Question.RightAnswer;
             }
-            if (NewQuestion.WrongAnswer1 != null && NewQuestion.WrongAnswer1 != "")
+            if (NewQuestion.WrongAnswer1 == null || NewQuestion.WrongAnswer1 == "")
 			{
-                q.WrongAnswer1 = NewQuestion.WrongAnswer1;
-                q.Status = service.QuestionStatuses.Where(x => x.Id == 2).FirstOrDefault();
-                q.StatusId = 2;
+                NewQuestion.WrongAnswer1 = Question.WrongAnswer1;
             }
-            if (NewQuestion.WrongAnswer2 != null && NewQuestion.WrongAnswer2 != "")
+            if (NewQuestion.WrongAnswer2 == null || NewQuestion.WrongAnswer2 == "")
 			{
-                q.WrongAnswer2 = NewQuestion.WrongAnswer2;
-                q.Status = service.QuestionStatuses.Where(x => x.Id == 2).FirstOrDefault();
-                q.StatusId = 2;
+                NewQuestion.WrongAnswer2 = Question.WrongAnswer2;
             }
-            if (NewQuestion.WrongAnswer3 != null && NewQuestion.WrongAnswer3 != "")
+            if (NewQuestion.WrongAnswer3 == null || NewQuestion.WrongAnswer3 == "")
 			{
-                q.WrongAnswer3 = NewQuestion.WrongAnswer3;
-                q.Status = service.QuestionStatuses.Where(x => x.Id == 2).FirstOrDefault();
-                q.StatusId = 2;
+                NewQuestion.WrongAnswer3 = Question.WrongAnswer3;
             }
-            if (NewQuestion.Subject != null && subjectNames.Contains(NewQuestion.Subject.SubjectName))
+            if (NewQuestion.Subject == null || !subjectNames.Contains(NewQuestion.Subject.SubjectName))
 			{
-                q.Subject = service.Subjects.Where(x => x.SubjectName ==  NewQuestion.Subject.SubjectName).First();
-				q.SubjectId = q.Subject.Id;
-                q.Status = service.QuestionStatuses.Where(x => x.Id == 2).FirstOrDefault();
-                q.StatusId = 2;
+				NewQuestion.Subject = Question.Subject;
+				NewQuestion.SubjectId = NewQuestion.Subject.Id;
+            }
+			if (NewQuestion.Text != Question.Text || NewQuestion.RightAnswer != Question.RightAnswer || NewQuestion.WrongAnswer1 != Question.WrongAnswer1 || NewQuestion.WrongAnswer2 != Question.WrongAnswer2 || NewQuestion.WrongAnswer3 != Question.WrongAnswer3 || NewQuestion.SubjectId != Question.SubjectId)
+			{
+				service.SaveEditedChanges(q, NewQuestion);
             }
         }
 		await AppShell.Current.GoToAsync("///Questions");

@@ -33,6 +33,21 @@ namespace Trivia2._0.Services
             AddSubjectsToQuestions();
 
         }
+        public async void SaveEditedChanges(Question q, Question newQ)
+        {
+            foreach (Question question in Questions.Where(x => x.Id == q.Id))
+            {
+                question.Text = newQ.Text;
+                question.RightAnswer = newQ.RightAnswer;
+                question.WrongAnswer1 = newQ.WrongAnswer1;
+                question.WrongAnswer2 = newQ.WrongAnswer2;
+                question.WrongAnswer3 = newQ.WrongAnswer3;
+                question.Subject = Subjects.Where(x => x.Id == newQ.SubjectId).FirstOrDefault();
+                question.SubjectId = newQ.SubjectId;
+                question.Status = QuestionStatuses.Where(x => x.Id == 2).FirstOrDefault();
+                question.StatusId = question.Status.Id;
+            }
+        }
         private async void AddPlayerToQuestions()
         {
             foreach (Question q in Questions)

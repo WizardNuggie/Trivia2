@@ -41,5 +41,11 @@
     ContentTemplate="{DataTemplate local:ApproveQuestionsPage}"
     Route="Pending"/>
     </FlyoutItem>
-
+    <FlyoutItem
+    Title="Manage Users"
+    Icon="admin.png">
+        <ShellContent
+    ContentTemplate="{DataTemplate local:UserAdminPage}"
+    Route="Admin"/>
+    </FlyoutItem>
 </Shell>

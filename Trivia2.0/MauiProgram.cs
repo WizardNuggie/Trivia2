@@ -27,6 +27,7 @@ namespace Trivia2._0
             builder.Services.AddTransient<UserQuestionsPage>();
             builder.Services.AddTransient<EditQuestionsPage>();
             builder.Services.AddTransient<ApproveQuestionsPage>();
+            builder.Services.AddTransient<UserAdminPage>();
 
             //ViewModels
             builder.Services.AddTransient<LogInViewModel>();
@@ -34,6 +35,7 @@ namespace Trivia2._0
             builder.Services.AddTransient<UserQuestionsPageViewModel>();
             builder.Services.AddTransient<EditQuestionsPageViewModel>();
             builder.Services.AddTransient<ApproveQuestionsPageViewModel>();
+            builder.Services.AddTransient<UserAdminPageViewModel>();
 
 
 #if DEBUG
