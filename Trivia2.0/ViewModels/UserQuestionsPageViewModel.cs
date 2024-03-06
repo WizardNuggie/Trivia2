@@ -14,6 +14,7 @@ public class UserQuestionsPageViewModel : ViewModel
 	private Subject selectedSubject;
 	private Color filterColor;
 	private Color editColor;
+	private int index;
 	public ObservableCollection<Question> Questions { get; private set; }
 	public List<Subject> Subjects { get; private set; }
 	public bool IsRefreshing { get => isRefreshing; set { isRefreshing = value; OnPropertyChanged(); } }
@@ -21,6 +22,7 @@ public class UserQuestionsPageViewModel : ViewModel
 	public Subject SelectedSubject { get => selectedSubject; set {  selectedSubject = value; OnPropertyChanged(); ((Command)FilterCommand).ChangeCanExecute(); ((Command)ClearFilterCommand).ChangeCanExecute(); if (selectedSubject != null) FilterColor = Colors.Black; else FilterColor = Colors.DarkGray; } }
 	public Color FilterColor { get => filterColor; set { filterColor = value; OnPropertyChanged(); } }
 	public Color EditColor { get => editColor; set { editColor = value; OnPropertyChanged(); } }
+	public int Index { get => index; set {  index = value; OnPropertyChanged(); } }
 	public ICommand RefreshCommand { get; set; }
 	public ICommand FilterCommand { get; set; }
 	public ICommand ClearFilterCommand { get; set; }
@@ -55,7 +57,15 @@ public class UserQuestionsPageViewModel : ViewModel
     private async Task ClearFilter()
     {
 		SelectedSubject = null;
-		Refresh();
+		Index = -1;
+        IsRefreshing = true;
+        Questions.Clear();
+        userQuestions = service.Questions;
+        foreach (Question question in userQuestions)
+        {
+            Questions.Add(question);
+        }
+		IsRefreshing = false;
     }
 
 	private async Task Filter()
@@ -64,20 +74,31 @@ public class UserQuestionsPageViewModel : ViewModel
 		userQuestions = service.Questions;
         foreach (Question question in userQuestions)
         {
-            if (question.Subject.Id == SelectedSubject.Id)
+            if (question.Subject.Id == SelectedSubject.Id || (Index != -1 && question.Subject.Id == Index+1))
                 Questions.Add(question);
         }
     }
     private async Task Refresh()
     {
 		IsRefreshing = true;
+		if (Index != 1)
+		{
+			Index = 1;
+			Filter();
+			ClearFilter();
+		}
+		else
+		{
+			Index = 0;
+			Filter();
+			ClearFilter();
+		}
 		Questions.Clear();
         userQuestions = service.Questions;
         foreach (Question question in userQuestions)
 		{
 			Questions.Add(question);
 		}
-		SelectedSubject = null;
 		IsRefreshing = false;
     }
 }

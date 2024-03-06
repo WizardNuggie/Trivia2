@@ -13,8 +13,8 @@ public class AddUserPageViewModel : ViewModel
 	private string email;
 	private Color saveColor;
 	public string UserName { get =>  userName; set { userName = value; OnPropertyChanged(); ((Command)SaveChangesCommand).ChangeCanExecute(); if ((email != null && email != "") && (password != null && password != "") && (userName != null && userName != "")) SaveColor = Colors.Black; else SaveColor = Colors.DarkGray; } }
-	public string Password { get =>  userName; set { userName = value; OnPropertyChanged(); ((Command)SaveChangesCommand).ChangeCanExecute(); if ((email != null && email != "") && (password != null && password != "") && (userName != null && userName != "")) SaveColor = Colors.Black; else SaveColor = Colors.DarkGray; } }
-	public string Email { get =>  userName; set { userName = value; OnPropertyChanged(); ((Command)SaveChangesCommand).ChangeCanExecute(); if ((email != null && email != "") && (password != null && password != "") && (userName != null && userName != "")) SaveColor = Colors.Black; else SaveColor = Colors.DarkGray; } }
+	public string Password { get =>  password; set { password = value; OnPropertyChanged(); ((Command)SaveChangesCommand).ChangeCanExecute(); if ((email != null && email != "") && (password != null && password != "") && (userName != null && userName != "")) SaveColor = Colors.Black; else SaveColor = Colors.DarkGray; } }
+	public string Email { get =>  email; set { email = value; OnPropertyChanged(); ((Command)SaveChangesCommand).ChangeCanExecute(); if ((email != null && email != "") && (password != null && password != "") && (userName != null && userName != "")) SaveColor = Colors.Black; else SaveColor = Colors.DarkGray; } }
 	public Color SaveColor { get => saveColor; set {  saveColor = value; OnPropertyChanged(); } }
 	public ICommand SaveChangesCommand { get; set; }
 	public AddUserPageViewModel(Service s)

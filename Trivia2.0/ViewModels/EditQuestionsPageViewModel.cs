@@ -1,6 +1,7 @@
 using System.Windows.Input;
 using Trivia2._0.Services;
 using Trivia2._0.Models;
+using Trivia2._0.Views;
 
 namespace Trivia2._0.ViewModels;
 [QueryProperty(nameof(Question), "Question")]

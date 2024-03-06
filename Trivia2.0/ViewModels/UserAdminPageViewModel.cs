@@ -54,6 +54,8 @@ public class UserAdminPageViewModel : ViewModel
         {
             user.Points = 0;
         }
+        Users.Where(x => x.Id == ((User)obj).Id).FirstOrDefault().Points = 0;
+        Refresh();
     }
     private void Delete(Object obj)
     {
@@ -64,6 +66,7 @@ public class UserAdminPageViewModel : ViewModel
             usertodel = user;
         }
         service.Players.Remove(usertodel);
+        Refresh();
     }
     private async Task Refresh()
     {
