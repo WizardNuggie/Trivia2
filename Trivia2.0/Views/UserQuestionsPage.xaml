@@ -22,7 +22,7 @@
                         <ColumnDefinition Width="0.5*"/>
                         <ColumnDefinition Width="0.5*"/>
                     </Grid.ColumnDefinitions>
-                    <Picker HorizontalTextAlignment="Center" x:DataType="model:Status" HeightRequest="50" ItemsSource="{Binding BindingContext.Statuses, Source={x:Reference scrlview}}" ItemDisplayBinding="{Binding CurrentStatus}" Title="Select a subject" SelectedItem="{Binding BindingContext.SelectedStatus, Source={x:Reference scrlview}}"/>
+                    <Picker HorizontalTextAlignment="Center" x:DataType="model:Status" HeightRequest="50" ItemsSource="{Binding BindingContext.Statuses, Source={x:Reference scrlview}}" ItemDisplayBinding="{Binding CurrentStatus}" Title="Select a status" SelectedItem="{Binding BindingContext.SelectedStatus, Source={x:Reference scrlview}}"/>
                     <ImageButton HeightRequest="55" WidthRequest="55" Grid.Column="2" CornerRadius="20" Source="cancel.png" Command="{Binding ClearFilterCommand}"/>
                     <Border Stroke="{Binding FilterColor}" StrokeThickness="2.6" WidthRequest="55" HeightRequest="55" Grid.Column="1">
                         <Border.StrokeShape>
