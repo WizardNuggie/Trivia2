@@ -19,6 +19,7 @@ public class UserAdminPageViewModel : ViewModel
     public ICommand ResetPointsCommand { get; set; }
     public ICommand DeleteCommand { get; set; }
     public ICommand AddUserCommand { get; set; }
+    public ICommand ShowDetailsCommand { get; set; }
     public UserAdminPageViewModel(Service s)
 	{
         service = s;
@@ -30,6 +31,7 @@ public class UserAdminPageViewModel : ViewModel
         ResetPointsCommand = new Command((Object obj) => ResetPoints(obj));
         DeleteCommand = new Command((Object obj) => Delete(obj));
         AddUserCommand = new Command(async () => await AddUser());
+        ShowDetailsCommand = new Command((Object obj) => ShowDetails((User)obj));
         foreach (Rank rank in service.Ranks)
         {
             Ranks.Add(rank);
@@ -38,6 +40,11 @@ public class UserAdminPageViewModel : ViewModel
         {
             Users.Add(user);
         }
+    }
+    private void ShowDetails(User u)
+    {
+        string details = $"Email: \"{u.Email}\"\nUsername: \"{u.Username}\"\nPassword: \"{u.Pswrd}\"\nPoints: \"{u.Points}\"\nQuestions Aded: \"{u.Questionsadded}\"\nRank: \"{u.Rank.RankName}\"\nId: \"{u.Id}\"";
+        AppShell.Current.DisplayAlert($"{u.Username}'s Details", details, "Ok");
     }
     private async Task AddUser()
     {

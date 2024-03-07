@@ -19,6 +19,7 @@ public class ApproveQuestionsPageViewModel : ViewModel
     public ICommand ClearFilterCommand { get; set; }
     public ICommand ApproveCommand { get; set; }
     public ICommand DeclineCommand { get; set; }
+    public ICommand ShowDetailsCommand { get; set; }
 
     public ApproveQuestionsPageViewModel(Service s)
 	{
@@ -31,6 +32,7 @@ public class ApproveQuestionsPageViewModel : ViewModel
         ClearFilterCommand = new Command(async () => await Refresh(), () => SelectedSubject != null);
         ApproveCommand = new Command((Object obj) => Approve(obj));
         DeclineCommand = new Command((Object obj) => Decline(obj));
+        ShowDetailsCommand = new Command((Object obj) => ShowDetailes((Question)obj));
         foreach (Subject subject in service.Subjects)
         {
             Subjects.Add(subject);
@@ -39,6 +41,11 @@ public class ApproveQuestionsPageViewModel : ViewModel
         {
             PenQs.Add(q);
         }
+    }
+    private void ShowDetailes(Question q)
+    {
+        string details = $"Text: \"{q.Text}\"\nCorrect Answer: \"{q.RightAnswer}\"\nWrong Answer 1: \"{q.WrongAnswer1}\"\nWrong Answer 2: \"{q.WrongAnswer2}\"\nWrong Answer 3: \"{q.WrongAnswer3}\"\nSubject: \"{q.Subject.SubjectName}\"\nStatus: \"{q.Status.CurrentStatus}\"\nCreated By: \"{q.User.Username}\"";
+        AppShell.Current.DisplayAlert("Question's Details", details, "Ok");
     }
     private void Approve(Object obj)
     {

@@ -6,13 +6,13 @@ namespace Trivia2._0.Models;
 
 public partial class User
 {
-    public int Id { get; set; }//id
-    public string Email { get; set; }//email entry
-    public string Pswrd { get; set; }//pswrd entry
-    public string Username { get; set; }//username entry
-    public int Points { get; set; }//0
-    public int Questionsadded { get; set; }//0
-    public int Rankid { get; set; }//3
+    public int Id { get; set; }
+    public string Email { get; set; }
+    public string Pswrd { get; set; }
+    public string Username { get; set; }
+    public int Points { get; set; }
+    public int Questionsadded { get; set; }
+    public int Rankid { get; set; }
     public virtual ICollection<Question> Questions { get; } = new List<Question>();
-    public virtual Rank Rank { get; set; }//service.addrankstoplayers
+    public virtual Rank Rank { get; set; }
 }

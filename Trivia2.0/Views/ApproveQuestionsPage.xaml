@@ -47,6 +47,9 @@
                                             <SwipeItem IconImageSource="decline.png" Command="{Binding BindingContext.DeclineCommand, Source={x:Reference scrlview}}" CommandParameter="{Binding .}"/>
                                         </SwipeItems>
                                     </SwipeView.LeftItems>
+                                    <SwipeView.RightItems>
+                                        <SwipeItem IconImageSource="showdetails.png" Command="{Binding BindingContext.ShowDetailsCommand, Source={x:Reference scrlview}}" CommandParameter="{Binding .}"/>
+                                    </SwipeView.RightItems>
                                 <Border HeightRequest="130" Padding="4" Margin="4,5" BackgroundColor="AliceBlue">
                                     <Grid>
                                         <Grid.ColumnDefinitions>
