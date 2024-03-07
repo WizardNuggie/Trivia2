@@ -44,7 +44,7 @@ public class ApproveQuestionsPageViewModel : ViewModel
     }
     private void ShowDetailes(Question q)
     {
-        string details = $"Text: \"{q.Text}\"\nCorrect Answer: \"{q.RightAnswer}\"\nWrong Answer 1: \"{q.WrongAnswer1}\"\nWrong Answer 2: \"{q.WrongAnswer2}\"\nWrong Answer 3: \"{q.WrongAnswer3}\"\nSubject: \"{q.Subject.SubjectName}\"\nStatus: \"{q.Status.CurrentStatus}\"\nCreated By: \"{q.User.Username}\"";
+        string details = $"Id: \"{q.Id}\"\nText: \"{q.Text}\"\nCorrect Answer: \"{q.RightAnswer}\"\nWrong Answer 1: \"{q.WrongAnswer1}\"\nWrong Answer 2: \"{q.WrongAnswer2}\"\nWrong Answer 3: \"{q.WrongAnswer3}\"\nSubject: \"{q.Subject.SubjectName}\"\nStatus: \"{q.Status.CurrentStatus}\"\nCreated By: \"{q.User.Username}\"";
         AppShell.Current.DisplayAlert("Question's Details", details, "Ok");
     }
     private void Approve(Object obj)
