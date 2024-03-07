@@ -32,7 +32,7 @@ public class UserQuestionsPageViewModel : ViewModel
 		Questions = new ObservableCollection<Question>();
 		IsRefreshing = false;
         RefreshCommand = new Command(async () => await Refresh());
-        ClearFilterCommand = new Command(async () => await ClearFilter(), () => SelectedStatus != null);
+        ClearFilterCommand = new Command(async () => await Refresh(), () => SelectedStatus != null);
 		NavToEditCommand = new Command(async () => await NavToEdit(), () => SelectedQuestion != null);
 		foreach (Status status in service.QuestionStatuses)
 		{
@@ -47,15 +47,10 @@ public class UserQuestionsPageViewModel : ViewModel
 		await AppShell.Current.GoToAsync("Edit", data);
 		SelectedQuestion = null;
 	}
-
-    private async Task ClearFilter()
-    {
-		Refresh();
-    }
-
 	private async Task Filter()
 	{
         Questions.Clear();
+		SelectedQuestion = null;
 		userQuestions = service.Questions;
         foreach (Question question in userQuestions)
         {

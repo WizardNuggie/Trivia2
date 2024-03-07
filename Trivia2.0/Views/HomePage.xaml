@@ -4,5 +4,7 @@
              x:Class="Trivia2._0.Views.HomePage"
              Shell.FlyoutBehavior="Flyout"
              Title="Home Page">
-    <Label Text="Welcome to the best trivia game ever"/>
+    <StackLayout>
+            <Image HeightRequest="800" WidthRequest="550" Aspect="Fill" Grid.Row="0" Source="trivia.jpg"/>
+        </StackLayout>
 </ContentPage>

@@ -25,19 +25,13 @@ public class BestScoresPageViewModel : ViewModel
 		Users = new ObservableCollection<User>();
 		IsRefreshing = false;
 		RefreshCommand = new Command(async () => await Refresh());
-		ClearFilterCommand = new Command(async () => await ClearFilter(), () => SelectedRank != null);
+		ClearFilterCommand = new Command(async () => await Refresh(), () => SelectedRank != null);
 		foreach (Rank rank in service.Ranks)
 		{
 			Ranks.Add(rank);
 		}
 		Refresh();
 	}
-
-    private async Task ClearFilter()
-	{
-		Refresh();
-	}
-
 	private async Task Filter()
     {
         Users.Clear();
@@ -47,12 +41,12 @@ public class BestScoresPageViewModel : ViewModel
 				Users.Add(user);
         }
 	}
-
     private async Task Refresh()
     {
 		IsRefreshing = true;
 		SelectedRank = null;
-		Users.Clear();
+        SelectedUser = null;
+        Users.Clear();
 		foreach (User user in service.Players.OrderByDescending(p => p.Points))
 		{
 			Users.Add(user);

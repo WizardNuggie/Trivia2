@@ -28,7 +28,7 @@ public class ApproveQuestionsPageViewModel : ViewModel
         PenQs = new ObservableCollection<Question>();
         IsRefreshing = false;
         RefreshCommand = new Command(async () => await Refresh());
-        ClearFilterCommand = new Command(async () => await ClearFilter(), () => SelectedSubject != null);
+        ClearFilterCommand = new Command(async () => await Refresh(), () => SelectedSubject != null);
         ApproveCommand = new Command((Object obj) => Approve(obj));
         DeclineCommand = new Command((Object obj) => Decline(obj));
         foreach (Subject subject in service.Subjects)
@@ -50,11 +50,6 @@ public class ApproveQuestionsPageViewModel : ViewModel
         service.ChangeStatus((Question)obj, false);
         PenQs.Remove((Question)obj);
     }
-    private async Task ClearFilter()
-    {
-        Refresh();
-    }
-
     private async Task Filter()
     {
         PenQs.Clear();

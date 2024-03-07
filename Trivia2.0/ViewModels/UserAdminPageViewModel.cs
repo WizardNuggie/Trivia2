@@ -26,7 +26,7 @@ public class UserAdminPageViewModel : ViewModel
         Ranks = new();
         Users = new ObservableCollection<User>();
         RefreshCommand = new Command(async () => await Refresh());
-        ClearFilterCommand = new Command(async () => await ClearFilter(), () => selectedRank != null);
+        ClearFilterCommand = new Command(async () => await Refresh(), () => selectedRank != null);
         ResetPointsCommand = new Command((Object obj) => ResetPoints(obj));
         DeleteCommand = new Command((Object obj) => Delete(obj));
         AddUserCommand = new Command(async () => await AddUser());
@@ -79,10 +79,5 @@ public class UserAdminPageViewModel : ViewModel
             if (user.Rankid == SelectedRank.Rankid || SelectedRank == null)
                 Users.Add(user);
         }
-    }
-    private async Task ClearFilter()
-    {
-        SelectedRank = null;
-        Refresh();
     }
 }
