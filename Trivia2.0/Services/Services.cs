@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using Trivia2._0.Models;
@@ -37,17 +39,86 @@ namespace Trivia2._0.Services
         {
                 int index = q.Id-1;
                 Questions.RemoveAt(index);
-                q.Text = newQ.Text;
-                q.RightAnswer = newQ.RightAnswer;
-                q.WrongAnswer1 = newQ.WrongAnswer1;
-                q.WrongAnswer2 = newQ.WrongAnswer2;
-                q.WrongAnswer3 = newQ.WrongAnswer3;
-                q.Subject = Subjects.Where(x => x.SubjectName == newQ.Subject.SubjectName).FirstOrDefault();
-                q.Subject.Id = Subjects.Where(x => x.SubjectName == newQ.Subject.SubjectName).FirstOrDefault().Id;
-                q.SubjectId = newQ.Subject.Id;
-                q.Status = QuestionStatuses.Where(x => x.Id == 2).FirstOrDefault();
-                q.StatusId = q.Status.Id;
+                q = new Question()
+                {
+                    Id = index+1,
+                    User = newQ.User,
+                    UserId = q.User.Id,
+                    Text = newQ.Text,
+                    RightAnswer = newQ.RightAnswer,
+                    WrongAnswer1 = newQ.WrongAnswer1,
+                    WrongAnswer2 = newQ.WrongAnswer2,
+                    WrongAnswer3 = newQ.WrongAnswer3,
+                    Subject = Subjects.Where(x => x.SubjectName == newQ.Subject.SubjectName).FirstOrDefault(),
+                    SubjectId = newQ.Subject.Id,
+                    Status = QuestionStatuses.Where(x => x.Id == 2).FirstOrDefault(),
+                    StatusId = 2,
+                };
                 Questions.Insert(index, q);
+        }
+        public void ChangeStatus(Question q, bool isApproved)
+        {
+            int index = q.Id - 1;
+            User user = q.User;
+            string text = q.Text;
+            string cor = q.RightAnswer;
+            string wrong1 = q.WrongAnswer1;
+            string wrong2 = q.WrongAnswer2;
+            string wrong3 = q.WrongAnswer3;
+            Subject sub = q.Subject;
+            Questions.RemoveAt(index);
+            q = new Question()
+            {
+                Id = index + 1,
+                User = user,
+                UserId = q.User.Id,
+                Text = text,
+                RightAnswer = cor,
+                WrongAnswer1 = wrong1,
+                WrongAnswer2 = wrong2,
+                WrongAnswer3 = wrong3,
+                Subject = sub,
+                SubjectId = sub.Id,
+            };
+            if (isApproved)
+            {
+                q.Status = QuestionStatuses.Where(x => x.Id == 1).FirstOrDefault();
+                q.StatusId = q.Status.Id;
+            }
+            else
+            {
+                q.Status = QuestionStatuses.Where(x => x.Id == 3).FirstOrDefault();
+                q.StatusId = q.Status.Id;
+            }
+            Questions.Insert(index, q);
+        }
+        public void ResetPoints(User u)
+        {
+            int index = u.Id - 1;
+            Rank rank = u.Rank;
+            int rankId = u.Rankid;
+            string email = u.Email;
+            string pass = u.Pswrd;
+            string username = u.Username;
+            int qAdded = u.Questionsadded;
+            ICollection<Question> qs = u.Questions;
+            Players.RemoveAt(index);
+            u = new User()
+            {
+                Id = index + 1,
+                Rank = rank,
+                Rankid = rankId,
+                Email = email,
+                Username = username,
+                Pswrd = pass,
+                Questionsadded = qAdded,
+                Points = 0,
+            };
+            foreach(Question q in qs)
+            {
+                u.Questions.Add(q);
+            }
+            Players.Insert(index, u);
         }
         private async void AddPlayerToQuestions()
         {

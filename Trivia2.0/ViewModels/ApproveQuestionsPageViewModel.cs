@@ -11,8 +11,8 @@ public class ApproveQuestionsPageViewModel : ViewModel
     private bool isRefreshing;
     private Subject selectedSubject;
     private Color filterColor;
+    private List<Question> qlist;
     public List<Subject> Subjects { get; private set; }
-
     public bool IsRefreshing { get => isRefreshing; set { isRefreshing = value; OnPropertyChanged(); } }
     public Subject SelectedSubject { get => selectedSubject; set { selectedSubject = value; OnPropertyChanged(); ((Command)FilterCommand).ChangeCanExecute(); ((Command)ClearFilterCommand).ChangeCanExecute(); if (selectedSubject != null) FilterColor = Colors.Black; else FilterColor = Colors.DarkGray; } }
     public Color FilterColor { get => filterColor; set { filterColor = value; OnPropertyChanged(); } }
@@ -26,6 +26,7 @@ public class ApproveQuestionsPageViewModel : ViewModel
     public ApproveQuestionsPageViewModel(Service s)
 	{
 		service = s;
+        qlist = service.Questions.Where(x => x.StatusId == 2).ToList();
         FilterColor = Colors.DarkGray;
         Subjects = new List<Subject>();
         PenQs = new ObservableCollection<Question>();
@@ -46,42 +47,35 @@ public class ApproveQuestionsPageViewModel : ViewModel
     }
     private void Approve(Object obj)
     {
-        foreach (Question q in service.Questions.Where(x => x.Id == ((Question)obj).Id))
-        {
-            q.Status = service.QuestionStatuses.Where(s => s.Id == 1).FirstOrDefault();
-            q.StatusId = 1;
-        }
+        service.ChangeStatus((Question)obj, true);
         PenQs.Remove((Question)obj);
     }
     private void Decline(Object obj)
     {
-        foreach (Question q in service.Questions.Where(x => x.Id == ((Question)obj).Id))
-        {
-            q.Status = service.QuestionStatuses.Where(s => s.Id == 3).FirstOrDefault();
-            q.StatusId = 3;
-        }
+        service.ChangeStatus((Question)obj, false);
         PenQs.Remove((Question)obj);
     }
     private async Task ClearFilter()
     {
-        SelectedSubject = null;
         Refresh();
     }
 
     private async Task Filter()
     {
         PenQs.Clear();
-        foreach (Question question in service.Questions)
+        qlist = service.Questions.Where(x => x.StatusId == 2).ToList();
+        foreach (Question question in qlist)
         {
-            if (question.SubjectId == SelectedSubject.Id && question.StatusId == 2)
+            if (question.SubjectId == SelectedSubject.Id)
                 PenQs.Add(question);
         }
     }
     private async Task Refresh()
     {
         IsRefreshing = true;
+        qlist = service.Questions.Where(x => x.StatusId == 2).ToList();
         PenQs.Clear();
-        foreach (Question question in service.Questions.Where(x => x.StatusId == 2))
+        foreach (Question question in qlist)
         {
             PenQs.Add(question);
         }

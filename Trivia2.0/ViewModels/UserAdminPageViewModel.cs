@@ -50,10 +50,7 @@ public class UserAdminPageViewModel : ViewModel
     }
     private void ResetPoints(Object obj)
     {
-        foreach(User user in service.Players.Where(x => x.Id == ((User)obj).Id))
-        {
-            user.Points = 0;
-        }
+        service.ResetPoints((User)obj);
         Users.Where(x => x.Id == ((User)obj).Id).FirstOrDefault().Points = 0;
         Refresh();
     }
