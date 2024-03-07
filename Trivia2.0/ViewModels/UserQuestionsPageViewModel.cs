@@ -11,14 +11,14 @@ public class UserQuestionsPageViewModel : ViewModel
 	private List<Question> userQuestions;
 	private bool isRefreshing;
 	private Question selectedQuestion;
-	private Subject selectedSubject;
+	private Status selectedStatus;
 	private Color filterColor;
 	private Color editColor;
 	public ObservableCollection<Question> Questions { get; private set; }
-	public List<Subject> Subjects { get; private set; }
+	public List<Status> Statuses { get; private set; }
 	public bool IsRefreshing { get => isRefreshing; set { isRefreshing = value; OnPropertyChanged(); } }
 	public Question SelectedQuestion { get => selectedQuestion; set { selectedQuestion = value; OnPropertyChanged(); ((Command)NavToEditCommand).ChangeCanExecute(); if (selectedQuestion != null) EditColor = Colors.Black; else EditColor = Colors.DarkGray; } }
-	public Subject SelectedSubject { get => selectedSubject; set {  selectedSubject = value; OnPropertyChanged(); ((Command)FilterCommand).ChangeCanExecute(); ((Command)ClearFilterCommand).ChangeCanExecute(); if (selectedSubject != null) FilterColor = Colors.Black; else FilterColor = Colors.DarkGray; } }
+	public Status SelectedStatus { get => selectedStatus; set {  selectedStatus = value; OnPropertyChanged(); ((Command)FilterCommand).ChangeCanExecute(); ((Command)ClearFilterCommand).ChangeCanExecute(); if (selectedStatus != null) FilterColor = Colors.Black; else FilterColor = Colors.DarkGray; } }
 	public Color FilterColor { get => filterColor; set { filterColor = value; OnPropertyChanged(); } }
 	public Color EditColor { get => editColor; set { editColor = value; OnPropertyChanged(); } }
 	public ICommand RefreshCommand { get; set; }
@@ -31,17 +31,17 @@ public class UserQuestionsPageViewModel : ViewModel
 		FilterColor = Colors.DarkGray;
 		EditColor = Colors.DarkGray;
 		service = s;
-		Subjects = new List<Subject>();
+        Statuses = new List<Status>();
 		userQuestions = service.Questions.Where(q => q.UserId == service.LoggedPlayer.Id).ToList();
 		Questions = new ObservableCollection<Question>();
 		IsRefreshing = false;
         RefreshCommand = new Command(async () => await Refresh());
-        FilterCommand = new Command(async () => await Filter(), () => SelectedSubject != null);
-        ClearFilterCommand = new Command(async () => await ClearFilter(), () => SelectedSubject != null);
+        FilterCommand = new Command(async () => await Filter(), () => SelectedStatus != null);
+        ClearFilterCommand = new Command(async () => await ClearFilter(), () => SelectedStatus != null);
 		NavToEditCommand = new Command(async () => await NavToEdit(), () => SelectedQuestion != null);
-		foreach (Subject subject in service.Subjects)
+		foreach (Status status in service.QuestionStatuses)
 		{
-			Subjects.Add(subject);
+			Statuses.Add(status);
 		}
 		Refresh();
     }
@@ -64,14 +64,14 @@ public class UserQuestionsPageViewModel : ViewModel
 		userQuestions = service.Questions;
         foreach (Question question in userQuestions)
         {
-            if (question.Subject.Id == SelectedSubject.Id)
+            if (question.StatusId == SelectedStatus.Id)
                 Questions.Add(question);
         }
     }
     private async Task Refresh()
     {
 		IsRefreshing = true;
-		SelectedSubject = null;
+		SelectedStatus = null;
 		Questions.Clear();
         userQuestions = service.Questions;
         foreach (Question question in userQuestions)
