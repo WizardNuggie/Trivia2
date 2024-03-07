@@ -20,16 +20,9 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="0.5*"/>
-                        <ColumnDefinition Width="0.5*"/>
                     </Grid.ColumnDefinitions>
                     <Picker HorizontalTextAlignment="Center" x:DataType="model:Rank" HeightRequest="50" ItemsSource="{Binding BindingContext.Ranks, Source={x:Reference scrlview}}" ItemDisplayBinding="{Binding RankName}" Title="Select a rank" SelectedItem="{Binding BindingContext.SelectedRank, Source={x:Reference scrlview}}"/>
-                    <ImageButton HeightRequest="55" Source="cancel.png" Grid.Column="2" Command="{Binding ClearFilterCommand}"/>
-                    <Border Stroke="{Binding FilterColor}" StrokeThickness="2.6" WidthRequest="55" HeightRequest="55" Grid.Column="1">
-                        <Border.StrokeShape>
-                            <RoundRectangle CornerRadius="7"/>
-                        </Border.StrokeShape>
-                        <ImageButton Source="filter.png" HeightRequest="40"  Command="{Binding FilterCommand}"/>
-                    </Border>
+                    <ImageButton HeightRequest="55" Source="cancel.png" Grid.Column="1" Command="{Binding ClearFilterCommand}"/>
                     <Border Grid.Row="1" Grid.ColumnSpan="3" BackgroundColor="Azure">
                         <Grid>
                             <Grid.ColumnDefinitions>

@@ -12,23 +12,19 @@ public class UserQuestionsPageViewModel : ViewModel
 	private bool isRefreshing;
 	private Question selectedQuestion;
 	private Status selectedStatus;
-	private Color filterColor;
 	private Color editColor;
 	public ObservableCollection<Question> Questions { get; private set; }
 	public List<Status> Statuses { get; private set; }
 	public bool IsRefreshing { get => isRefreshing; set { isRefreshing = value; OnPropertyChanged(); } }
 	public Question SelectedQuestion { get => selectedQuestion; set { selectedQuestion = value; OnPropertyChanged(); ((Command)NavToEditCommand).ChangeCanExecute(); if (selectedQuestion != null) EditColor = Colors.Black; else EditColor = Colors.DarkGray; } }
-	public Status SelectedStatus { get => selectedStatus; set {  selectedStatus = value; OnPropertyChanged(); ((Command)FilterCommand).ChangeCanExecute(); ((Command)ClearFilterCommand).ChangeCanExecute(); if (selectedStatus != null) FilterColor = Colors.Black; else FilterColor = Colors.DarkGray; } }
-	public Color FilterColor { get => filterColor; set { filterColor = value; OnPropertyChanged(); } }
+	public Status SelectedStatus { get => selectedStatus; set {  selectedStatus = value; OnPropertyChanged(); Filter(); ((Command)ClearFilterCommand).ChangeCanExecute(); } }
 	public Color EditColor { get => editColor; set { editColor = value; OnPropertyChanged(); } }
 	public ICommand RefreshCommand { get; set; }
-	public ICommand FilterCommand { get; set; }
 	public ICommand ClearFilterCommand { get; set; }
     public ICommand NavToEditCommand { get; set; }
 
     public UserQuestionsPageViewModel(Service s)
 	{
-		FilterColor = Colors.DarkGray;
 		EditColor = Colors.DarkGray;
 		service = s;
         Statuses = new List<Status>();
@@ -36,7 +32,6 @@ public class UserQuestionsPageViewModel : ViewModel
 		Questions = new ObservableCollection<Question>();
 		IsRefreshing = false;
         RefreshCommand = new Command(async () => await Refresh());
-        FilterCommand = new Command(async () => await Filter(), () => SelectedStatus != null);
         ClearFilterCommand = new Command(async () => await ClearFilter(), () => SelectedStatus != null);
 		NavToEditCommand = new Command(async () => await NavToEdit(), () => SelectedQuestion != null);
 		foreach (Status status in service.QuestionStatuses)

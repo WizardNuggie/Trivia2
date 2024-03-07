@@ -19,16 +19,9 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="0.5*"/>
-                        <ColumnDefinition Width="0.5*"/>
                     </Grid.ColumnDefinitions>
                     <Picker HorizontalTextAlignment="Center" x:DataType="model:Subject" HeightRequest="50" ItemsSource="{Binding BindingContext.Subjects, Source={x:Reference scrlview}}" ItemDisplayBinding="{Binding SubjectName}" Title="Select a subject" SelectedItem="{Binding BindingContext.SelectedSubject, Source={x:Reference scrlview}}"/>
                     <ImageButton HeightRequest="55" WidthRequest="55" Grid.Column="2" CornerRadius="20" Source="cancel.png" Command="{Binding ClearFilterCommand}"/>
-                    <Border Stroke="{Binding FilterColor}" StrokeThickness="2.6" WidthRequest="55" HeightRequest="55" Grid.Column="1">
-                        <Border.StrokeShape>
-                            <RoundRectangle CornerRadius="7"/>
-                        </Border.StrokeShape>
-                        <ImageButton Source="filter.png" HeightRequest="40"  Command="{Binding FilterCommand}"/>
-                    </Border>
                     <Border Grid.Row="1" Grid.ColumnSpan="3" BackgroundColor="Azure">
                         <Grid>
                             <Grid.ColumnDefinitions>
