@@ -43,7 +43,7 @@ public class UserAdminPageViewModel : ViewModel
     }
     private void ShowDetails(User u)
     {
-        string details = $"Email: \"{u.Email}\"\nUsername: \"{u.Username}\"\nPassword: \"{u.Pswrd}\"\nPoints: \"{u.Points}\"\nQuestions Aded: \"{u.Questionsadded}\"\nRank: \"{u.Rank.RankName}\"\nId: \"{u.Id}\"";
+        string details = $"Id: \"{u.Id}\"\nUsername: \"{u.Username}\"\nPassword: \"{u.Pswrd}\"\nPoints: \"{u.Points}\"\nQuestions Aded: \"{u.Questionsadded}\"\nRank: \"{u.Rank.RankName}\"\nEmail: \"{u.Email}\"";
         AppShell.Current.DisplayAlert($"{u.Username}'s Details", details, "Ok");
     }
     private async Task AddUser()
