@@ -9,5 +9,4 @@ public partial class Subject
 {
     public int Id { get; set; }
     public string SubjectName { get; set; }
-    public virtual ICollection<Question> Questions { get; } = new List<Question>();
 }

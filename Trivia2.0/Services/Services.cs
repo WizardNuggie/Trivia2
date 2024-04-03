@@ -101,7 +101,6 @@ namespace Trivia2._0.Services
             string pass = u.Pswrd;
             string username = u.Username;
             int qAdded = u.Questionsadded;
-            ICollection<Question> qs = u.Questions;
             Players.RemoveAt(index);
             u = new User()
             {
@@ -114,10 +113,6 @@ namespace Trivia2._0.Services
                 Questionsadded = qAdded,
                 Points = 0,
             };
-            foreach(Question q in qs)
-            {
-                u.Questions.Add(q);
-            }
             Players.Insert(index, u);
         }
         private async void AddPlayerToQuestions()
